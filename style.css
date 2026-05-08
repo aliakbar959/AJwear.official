@@ -241,7 +241,7 @@ nav::after {
 .hero-bg {
   position: absolute;
   inset: 0;
-  background-image: url('images/white.png');
+  background-image: url('white.png');
   background-size: cover;
   background-position: center top;
   transform: scale(1.08);
