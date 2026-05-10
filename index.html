@@ -653,13 +653,33 @@
       color: black;
     }
 
-    .close-modal {
-      position: absolute;
-      top: 20px;
-      right: 20px;
-      font-size: 2rem;
-      cursor: pointer;
-    }
+   ```css id="x7q1mv"
+.close-modal {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.08);
+  border: 1px solid rgba(255,255,255,0.1);
+  backdrop-filter: blur(12px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  font-size: 2rem;
+  cursor: pointer;
+  transition: var(--transition);
+}
+
+.close-modal:hover {
+  background: white;
+  color: black;
+  transform: rotate(90deg);
+}
+```
+
 
     @media(max-width: 980px) {
       .hero,
