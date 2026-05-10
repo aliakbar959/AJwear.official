@@ -8,9 +8,6 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
-
   <style>
     :root {
       --bg: #050505;
@@ -23,21 +20,13 @@
       --radius: 22px;
       --transition: all 0.45s ease;
     }
-
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-      scroll-behavior: smooth;
-    }
-
+    * { margin: 0; padding: 0; box-sizing: border-box; scroll-behavior: smooth; }
     body {
       font-family: 'Montserrat', sans-serif;
       background: var(--bg);
       color: var(--text);
       overflow-x: hidden;
     }
-
     body::before {
       content: '';
       position: fixed;
@@ -52,7 +41,6 @@
       top: var(--y, 50%);
       transition: 0.08s linear;
     }
-
     .loader {
       position: fixed;
       inset: 0;
@@ -63,14 +51,9 @@
       align-items: center;
       flex-direction: column;
       gap: 20px;
-      transition: 1s ease;
+      transition: opacity 1s ease, visibility 1s ease;
     }
-
-    .loader img {
-      width: 120px;
-      animation: pulse 2s infinite;
-    }
-
+    .loader img { width: 120px; animation: pulse 2s infinite; }
     .loader-bar {
       width: 200px;
       height: 4px;
@@ -78,7 +61,6 @@
       overflow: hidden;
       border-radius: 20px;
     }
-
     .loader-bar span {
       display: block;
       width: 0%;
@@ -86,20 +68,18 @@
       background: linear-gradient(90deg, white, var(--accent));
       animation: loading 2.5s forwards;
     }
-
-    @keyframes loading {
-      to { width: 100%; }
-    }
-
+    @keyframes loading { to { width: 100%; } }
     @keyframes pulse {
       0%,100% { transform: scale(1); opacity: 1; }
       50% { transform: scale(1.08); opacity: 0.7; }
     }
-
+    @keyframes float {
+      0%,100% { transform: translateY(0px); }
+      50% { transform: translateY(-18px); }
+    }
     nav {
       position: fixed;
-      top: 0;
-      left: 0;
+      top: 0; left: 0;
       width: 100%;
       padding: 18px 7%;
       display: flex;
@@ -110,17 +90,8 @@
       background: rgba(0,0,0,0.35);
       border-bottom: 1px solid rgba(255,255,255,0.08);
     }
-
-    nav img {
-      width: 100px;
-    }
-
-    nav ul {
-      display: flex;
-      gap: 32px;
-      list-style: none;
-    }
-
+    nav img { width: 100px; }
+    nav ul { display: flex; gap: 32px; list-style: none; }
     nav ul li a {
       color: white;
       text-decoration: none;
@@ -128,17 +99,19 @@
       letter-spacing: 1px;
       transition: var(--transition);
     }
-
-    nav ul li a:hover {
-      color: var(--accent);
+    nav ul li a:hover { color: var(--accent); }
+    .nav-right { display: flex; align-items: center; gap: 18px; }
+    .nav-icons { display: flex; gap: 18px; font-size: 1.1rem; }
+    .nav-icons a { color: white; text-decoration: none; }
+    .hamburger {
+      display: none;
+      background: transparent;
+      border: none;
+      color: white;
+      font-size: 1.6rem;
+      cursor: pointer;
+      line-height: 1;
     }
-
-    .nav-icons {
-      display: flex;
-      gap: 18px;
-      font-size: 1.1rem;
-    }
-
     .hero {
       min-height: 100vh;
       display: grid;
@@ -148,7 +121,6 @@
       position: relative;
       overflow: hidden;
     }
-
     .hero::before {
       content: '';
       position: absolute;
@@ -156,19 +128,14 @@
       background: linear-gradient(120deg, rgba(0,0,0,0.8), rgba(0,0,0,0.3));
       z-index: 1;
     }
-
-    .hero-content {
-      position: relative;
-      z-index: 2;
-    }
-
-    .hero-content p {
+    .hero-content { position: relative; z-index: 2; }
+    .hero-tag {
       color: var(--accent);
       letter-spacing: 3px;
       margin-bottom: 20px;
       text-transform: uppercase;
+      font-size: 0.85rem;
     }
-
     .hero-content h1 {
       font-size: clamp(3rem, 7vw, 7rem);
       line-height: 0.95;
@@ -176,25 +143,9 @@
       text-transform: uppercase;
       font-weight: 900;
     }
-
-    .hero-content h1 span {
-      color: transparent;
-      -webkit-text-stroke: 1px white;
-    }
-
-    .hero-content .desc {
-      color: var(--muted);
-      max-width: 550px;
-      line-height: 1.8;
-      margin-bottom: 35px;
-    }
-
-    .hero-buttons {
-      display: flex;
-      gap: 18px;
-      flex-wrap: wrap;
-    }
-
+    .hero-content h1 span { color: transparent; -webkit-text-stroke: 1px white; }
+    .desc { color: var(--muted); max-width: 550px; line-height: 1.8; margin-bottom: 35px; }
+    .hero-buttons { display: flex; gap: 18px; flex-wrap: wrap; }
     .btn {
       padding: 15px 32px;
       border-radius: 50px;
@@ -203,73 +154,32 @@
       color: black;
       text-decoration: none;
       font-weight: 700;
+      font-family: 'Montserrat', sans-serif;
       transition: var(--transition);
       cursor: pointer;
+      display: inline-block;
     }
-
-    .btn-outline {
-      background: transparent;
-      color: white;
-    }
-
-    .btn:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 10px 30px rgba(255,255,255,0.12);
-    }
-
-    .hero-image {
-      position: relative;
-      z-index: 2;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-    }
-
+    .btn-outline { background: transparent; color: white; }
+    .btn:hover { transform: translateY(-5px); box-shadow: 0 10px 30px rgba(255,255,255,0.12); }
+    .hero-image { position: relative; z-index: 2; display: flex; justify-content: center; align-items: center; }
     .hero-image img {
       width: 100%;
       max-width: 550px;
       filter: drop-shadow(0 40px 80px rgba(0,0,0,0.9));
       animation: float 5s ease-in-out infinite;
     }
-
-    @keyframes float {
-      0%,100% { transform: translateY(0px); }
-      50% { transform: translateY(-18px); }
-    }
-
-    section {
-      padding: 110px 7%;
-      position: relative;
-      z-index: 2;
-    }
-
+    section { padding: 110px 7%; position: relative; z-index: 2; }
     .section-title {
       display: flex;
       justify-content: space-between;
-      align-items: end;
+      align-items: flex-end;
       margin-bottom: 60px;
       gap: 20px;
       flex-wrap: wrap;
     }
-
-    .section-title h2 {
-      font-size: clamp(2rem,5vw,4rem);
-      text-transform: uppercase;
-      font-weight: 900;
-    }
-
-    .section-title p {
-      color: var(--muted);
-      max-width: 500px;
-      line-height: 1.7;
-    }
-
-    .products-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit,minmax(260px,1fr));
-      gap: 30px;
-    }
-
+    .section-title h2 { font-size: clamp(2rem,5vw,4rem); text-transform: uppercase; font-weight: 900; }
+    .section-title p { color: var(--muted); max-width: 500px; line-height: 1.7; }
+    .products-grid { display: grid; grid-template-columns: repeat(auto-fit,minmax(260px,1fr)); gap: 30px; }
     .product-card {
       position: relative;
       overflow: hidden;
@@ -279,46 +189,29 @@
       backdrop-filter: blur(15px);
       transition: var(--transition);
     }
-
-    .product-card:hover {
-      transform: translateY(-10px);
-      box-shadow: var(--shadow);
-    }
-
-    .product-image {
-      height: 380px;
-      overflow: hidden;
-      position: relative;
-    }
-
-    .product-image img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      transition: 0.8s ease;
-    }
-
-    .product-card:hover img {
-      transform: scale(1.08);
-    }
-
+    .product-card:hover { transform: translateY(-10px); box-shadow: var(--shadow); }
+    .product-image { height: 380px; overflow: hidden; position: relative; }
+    .product-image img { width: 100%; height: 100%; object-fit: cover; transition: 0.8s ease; }
+    .product-card:hover .product-image img { transform: scale(1.08); }
     .wishlist {
       position: absolute;
-      top: 20px;
-      right: 20px;
-      width: 45px;
-      height: 45px;
+      top: 20px; right: 20px;
+      width: 45px; height: 45px;
       border-radius: 50%;
       background: rgba(255,255,255,0.1);
+      border: none;
       display: flex;
       align-items: center;
       justify-content: center;
       backdrop-filter: blur(10px);
-      font-size: 1rem;
+      font-size: 1.1rem;
       cursor: pointer;
       z-index: 2;
+      color: white;
+      transition: var(--transition);
     }
-
+    .wishlist.wished { color: #ff6b6b; }
+    .wishlist:hover { background: rgba(255,255,255,0.2); }
     .quick-view {
       z-index: 10;
       position: absolute;
@@ -330,39 +223,18 @@
       padding: 12px 25px;
       border-radius: 50px;
       font-weight: 700;
+      font-family: 'Montserrat', sans-serif;
+      border: none;
       transition: 0.5s ease;
       cursor: pointer;
+      white-space: nowrap;
     }
-
-    .product-card:hover .quick-view {
-      bottom: 20px;
-    }
-
-    .product-info {
-      padding: 24px;
-    }
-
-    .product-info h3 {
-      font-size: 1.2rem;
-      margin-bottom: 10px;
-    }
-
-    .product-info p {
-      color: var(--muted);
-      margin-bottom: 16px;
-    }
-
-    .price-row {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
-
-    .price {
-      font-weight: 800;
-      font-size: 1.2rem;
-    }
-
+    .product-card:hover .quick-view { bottom: 20px; }
+    .product-info { padding: 24px; }
+    .product-info h3 { font-size: 1.2rem; margin-bottom: 10px; }
+    .product-info .sub { color: var(--muted); margin-bottom: 16px; }
+    .price-row { display: flex; justify-content: space-between; align-items: center; }
+    .price { font-weight: 800; font-size: 1.2rem; }
     .cart-btn {
       background: rgba(255,255,255,0.08);
       border: 1px solid rgba(255,255,255,0.08);
@@ -371,44 +243,17 @@
       border-radius: 50px;
       cursor: pointer;
       transition: var(--transition);
+      text-decoration: none;
+      font-size: 0.85rem;
+      font-weight: 600;
+      display: inline-block;
     }
-
-    .cart-btn:hover {
-      background: white;
-      color: black;
-    }
-
-    .story {
-      display: grid;
-      grid-template-columns: repeat(2,1fr);
-      gap: 60px;
-      align-items: center;
-    }
-
-    .story img {
-      width: 100%;
-      border-radius: 30px;
-      box-shadow: var(--shadow);
-    }
-
-    .story-content h2 {
-      font-size: clamp(2rem,5vw,4rem);
-      margin-bottom: 25px;
-      text-transform: uppercase;
-    }
-
-    .story-content p {
-      color: var(--muted);
-      line-height: 2;
-      margin-bottom: 25px;
-    }
-
-    .features {
-      display: grid;
-      grid-template-columns: repeat(auto-fit,minmax(240px,1fr));
-      gap: 25px;
-    }
-
+    .cart-btn:hover { background: white; color: black; }
+    .story { display: grid; grid-template-columns: repeat(2,1fr); gap: 60px; align-items: center; }
+    .story img { width: 100%; border-radius: 30px; box-shadow: var(--shadow); }
+    .story-content h2 { font-size: clamp(2rem,5vw,4rem); margin-bottom: 25px; text-transform: uppercase; }
+    .story-content p { color: var(--muted); line-height: 2; margin-bottom: 25px; }
+    .features { display: grid; grid-template-columns: repeat(auto-fit,minmax(240px,1fr)); gap: 25px; }
     .feature-card {
       padding: 35px;
       border-radius: 25px;
@@ -417,40 +262,19 @@
       transition: var(--transition);
       backdrop-filter: blur(10px);
     }
-
-    .feature-card:hover {
-      transform: translateY(-8px);
-      background: rgba(255,255,255,0.07);
-    }
-
-    .feature-card h3 {
-      margin: 18px 0;
-      font-size: 1.2rem;
-    }
-
-    .feature-card p {
-      color: var(--muted);
-      line-height: 1.7;
-    }
-
-    .gallery {
-      columns: 3 250px;
-      gap: 20px;
-    }
-
+    .feature-card:hover { transform: translateY(-8px); background: rgba(255,255,255,0.07); }
+    .feature-card h3 { margin-bottom: 14px; font-size: 1.2rem; }
+    .feature-card p { color: var(--muted); line-height: 1.7; }
+    .gallery { columns: 3 250px; gap: 20px; }
     .gallery img {
       width: 100%;
       margin-bottom: 20px;
       border-radius: 25px;
       transition: 0.5s ease;
       cursor: pointer;
+      display: block;
     }
-
-    .gallery img:hover {
-      transform: scale(0.98);
-      filter: brightness(1.1);
-    }
-
+    .gallery img:hover { transform: scale(0.98); filter: brightness(1.1); }
     .drop-banner {
       padding: 70px;
       border-radius: 40px;
@@ -460,73 +284,23 @@
       position: relative;
       overflow: hidden;
     }
-
     .drop-banner::before {
       content: '';
       position: absolute;
       inset: 0;
       background: radial-gradient(circle at top right, rgba(93,139,255,0.2), transparent 40%);
     }
-
-    .drop-banner h2 {
-      font-size: clamp(2rem,5vw,5rem);
-      margin-bottom: 20px;
-      position: relative;
-      z-index: 2;
-    }
-
-    .drop-banner p {
-      color: var(--muted);
-      margin-bottom: 30px;
-      position: relative;
-      z-index: 2;
-    }
-
-    .countdown {
-      display: flex;
-      justify-content: center;
-      gap: 20px;
-      flex-wrap: wrap;
-      margin-bottom: 35px;
-      position: relative;
-      z-index: 2;
-    }
-
-    .count-box {
-      width: 120px;
-      height: 120px;
-      border-radius: 25px;
-      background: rgba(255,255,255,0.06);
-      border: 1px solid rgba(255,255,255,0.08);
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-    }
-
-    .count-box h3 {
-      font-size: 2rem;
-    }
-
-    .testimonials {
-      display: grid;
-      grid-template-columns: repeat(auto-fit,minmax(300px,1fr));
-      gap: 25px;
-    }
-
+    .drop-banner h2 { font-size: clamp(2rem,5vw,5rem); margin-bottom: 20px; position: relative; z-index: 2; }
+    .drop-banner > p { color: var(--muted); margin-bottom: 30px; position: relative; z-index: 2; }
+    .drop-banner .btn { position: relative; z-index: 2; }
+    .testimonials { display: grid; grid-template-columns: repeat(auto-fit,minmax(300px,1fr)); gap: 25px; }
     .testimonial {
       padding: 35px;
       border-radius: 25px;
       background: rgba(255,255,255,0.04);
       border: 1px solid rgba(255,255,255,0.08);
     }
-
-    .testimonial p {
-      color: var(--muted);
-      line-height: 1.9;
-      margin-bottom: 25px;
-    }
-
+    .testimonial p { color: var(--muted); line-height: 1.9; margin-bottom: 25px; }
     .newsletter {
       padding: 70px;
       border-radius: 35px;
@@ -534,91 +308,36 @@
       border: 1px solid rgba(255,255,255,0.08);
       text-align: center;
     }
-
-    .newsletter h2 {
-      font-size: clamp(2rem,5vw,4rem);
-      margin-bottom: 15px;
-    }
-
-    .newsletter p {
-      color: var(--muted);
-      margin-bottom: 30px;
-    }
-
-    .newsletter-form {
-      max-width: 700px;
-      margin: auto;
-      display: flex;
-      gap: 15px;
-      flex-wrap: wrap;
-    }
-
-    .newsletter-form input {
-      flex: 1;
-      min-width: 220px;
-      padding: 18px 22px;
-      border-radius: 50px;
-      border: 1px solid rgba(255,255,255,0.08);
-      background: rgba(255,255,255,0.06);
-      color: white;
-      outline: none;
-    }
-
-    footer {
-      padding: 80px 7% 40px;
-      border-top: 1px solid rgba(255,255,255,0.08);
-    }
-
-    .footer-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit,minmax(220px,1fr));
-      gap: 40px;
-      margin-bottom: 50px;
-    }
-
-    footer img {
-      width: 120px;
-      margin-bottom: 20px;
-    }
-
-    footer p, footer a {
-      color: var(--muted);
-      line-height: 2;
-      text-decoration: none;
-    }
-
+    .newsletter h2 { font-size: clamp(2rem,5vw,4rem); margin-bottom: 15px; }
+    .newsletter > p { color: var(--muted); margin-bottom: 30px; }
+    footer { padding: 80px 7% 40px; border-top: 1px solid rgba(255,255,255,0.08); }
+    .footer-grid { display: grid; grid-template-columns: repeat(auto-fit,minmax(220px,1fr)); gap: 40px; margin-bottom: 50px; }
+    footer img { width: 120px; margin-bottom: 20px; }
+    footer p, footer a { color: var(--muted); line-height: 2; text-decoration: none; }
+    footer a:hover { color: white; }
+    footer h3 { margin-bottom: 10px; }
     .copyright {
       text-align: center;
       color: var(--muted);
       padding-top: 25px;
       border-top: 1px solid rgba(255,255,255,0.08);
     }
-
-.modal {
-  position: fixed;
-  inset: 0;
-  background: rgba(0,0,0,0.82);
-  backdrop-filter: blur(10px);
-
-  display: flex;
-  justify-content: center;
-  align-items: center;
-
-  z-index: 9999;
-  padding: 20px;
-
-  opacity: 0;
-  visibility: hidden;
-  pointer-events: none;
-
-  transition: all 0.4s ease;
-}
-    
-.modal.active {
-  opacity: 1;
-  visibility: visible;
-  pointer-events: auto;
-}
+    .modal {
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.82);
+      backdrop-filter: blur(10px);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 9999;
+      padding: 20px;
+      opacity: 0;
+      visibility: hidden;
+      pointer-events: none;
+      transition: all 0.4s ease;
+    }
+    .modal.active { opacity: 1; visibility: visible; pointer-events: auto; }
     .modal-content {
       background: #0f0f0f;
       border-radius: 30px;
@@ -629,29 +348,12 @@
       overflow: hidden;
       border: 1px solid rgba(255,255,255,0.08);
     }
-
-    .modal-content img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-    }
-
-    .modal-details {
-      padding: 40px;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-    }
-
-    .sizes {
-      display: flex;
-      gap: 10px;
-      margin: 25px 0;
-    }
-
+    .modal-content > img { width: 100%; height: 100%; object-fit: cover; }
+    .modal-details { padding: 40px; display: flex; flex-direction: column; justify-content: center; }
+    .modal-details h2 { font-size: 1.8rem; }
+    .sizes { display: flex; gap: 10px; margin: 25px 0; }
     .size {
-      width: 45px;
-      height: 45px;
+      width: 45px; height: 45px;
       border-radius: 50%;
       display: flex;
       align-items: center;
@@ -659,453 +361,373 @@
       border: 1px solid rgba(255,255,255,0.08);
       cursor: pointer;
       transition: var(--transition);
+      font-size: 0.85rem;
+      font-weight: 600;
     }
-
-    .size:hover {
-      background: white;
-      color: black;
+    .size:hover, .size.active { background: white; color: black; }
+    .close-modal {
+      position: absolute;
+      top: 20px; right: 20px;
+      width: 50px; height: 50px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.12);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      color: white;
+      font-size: 2rem;
+      cursor: pointer;
+      z-index: 10000;
+      border: none;
+      line-height: 1;
+      transition: 0.3s ease;
     }
-
-
-.close-modal {
-  position: absolute;
-  top: 20px;
-  right: 20px;
-
-  width: 50px;
-  height: 50px;
-
-  border-radius: 50%;
-  background: rgba(255,255,255,0.12);
-
-  display: flex;
-  justify-content: center;
-  align-items: center;
-
-  color: white;
-  font-size: 2rem;
-  cursor: pointer;
-
-  z-index: 10000;
-
-  transition: 0.3s ease;
-}
-
-.close-modal:hover {
-  background: white;
-  color: black;
-  transform: rotate(90deg);
-}
-.close-modal:hover {
-  background: white;
-  color: black;
-  transform: scale(1.08) rotate(90deg);
-}
-
-
-
+    .close-modal:hover { background: white; color: black; transform: scale(1.08) rotate(90deg); }
     @media(max-width: 980px) {
-      .hero,
-      .story,
-      .modal-content {
-        grid-template-columns: 1fr;
-      }
-
-      .hero {
-        padding-top: 120px;
-      }
-
+      .hero, .story, .modal-content { grid-template-columns: 1fr; }
+      .hero { padding-top: 120px; }
+      .hero-content { margin-bottom: 50px; }
       nav ul {
         display: none;
+        position: absolute;
+        top: 100%; left: 0;
+        width: 100%;
+        flex-direction: column;
+        background: rgba(0,0,0,0.95);
+        backdrop-filter: blur(20px);
+        padding: 20px 7%;
+        gap: 18px;
+        border-bottom: 1px solid rgba(255,255,255,0.08);
       }
-
-      .hero-content {
-        margin-bottom: 50px;
-      }
-
-      .modal-content img {
-        height: 400px;
-      }
+      nav ul.nav-open { display: flex; }
+      .hamburger { display: block; }
+      .modal-content > img { height: 400px; }
     }
-
     @media(max-width: 600px) {
-      section {
-        padding: 90px 6%;
-      }
-
-      .hero-content h1 {
-        font-size: 3.2rem;
-      }
-
-      .drop-banner,
-      .newsletter {
-        padding: 40px 20px;
-      }
-
-      .count-box {
-        width: 90px;
-        height: 90px;
-      }
+      section { padding: 90px 6%; }
+      .hero-content h1 { font-size: 3.2rem; }
+      .drop-banner, .newsletter { padding: 40px 20px; }
     }
   </style>
 </head>
 <body>
-
-  <div class="loader">
+  <div class="loader" id="loader">
     <img src="logo.png" alt="AJ Wear">
     <div class="loader-bar"><span></span></div>
   </div>
-
   <nav>
     <img src="logo.png" alt="AJ Wear Logo">
-
-    <ul>
-      <li><a href="#collections">Collections</a></li>
-      <li><a href="#story">Story</a></li>
-      <li><a href="#arrivals">New Arrivals</a></li>
-      <li><a href="#gallery">Lookbook</a></li>
-      <li><a href="#contact">Contact</a></li>
+    <ul id="navMenu">
+      <li><a href="#collections" onclick="closeMenu()">Collections</a></li>
+      <li><a href="#story" onclick="closeMenu()">Story</a></li>
+      <li><a href="#arrivals" onclick="closeMenu()">New Arrivals</a></li>
+      <li><a href="#gallery" onclick="closeMenu()">Lookbook</a></li>
+      <li><a href="#contact" onclick="closeMenu()">Contact</a></li>
     </ul>
-
-    <div class="nav-icons">
-      <span>🛒</span>
-      <span>♡</span>
+    <div class="nav-right">
+      <div class="nav-icons">
+        <a href="https://www.instagram.com/ajwear.official" target="_blank" rel="noreferrer">&#9749;</a>
+        <span>&#9825;</span>
+      </div>
+      <button class="hamburger" id="hamburger" onclick="toggleMenu()" aria-label="Toggle menu">&#9776;</button>
     </div>
   </nav>
-
   <section class="hero">
     <div class="hero-content">
-      <p>Luxury Streetwear Collection</p>
+      <p class="hero-tag">Luxury Streetwear Collection</p>
       <h1>Built For <span>The Bold.</span></h1>
-      <p class="desc">
-        AJ Wear blends cinematic streetwear aesthetics with premium gymwear performance. Designed for creators, athletes, and the next generation.
-      </p>
-
+      <p class="desc">AJ Wear blends cinematic streetwear aesthetics with premium gymwear performance. Designed for creators, athletes, and the next generation.</p>
       <div class="hero-buttons">
         <a href="#collections" class="btn">Shop Now</a>
         <a href="#story" class="btn btn-outline">Explore Collection</a>
       </div>
     </div>
-
     <div class="hero-image">
       <img src="black.png" alt="AJ Wear Hero">
     </div>
   </section>
-
   <section id="collections">
     <div class="section-title">
       <h2>Featured Collection</h2>
       <p>Luxury essentials engineered with premium aesthetics, powerful fits, and elevated comfort.</p>
     </div>
-
     <div class="products-grid">
-
       <div class="product-card">
         <div class="product-image">
-          <div class="wishlist">♡</div>
+          <button class="wishlist" onclick="toggleWish(this)">&#9825;</button>
           <img src="black.png" alt="Black Tee">
-          <div class="quick-view">Quick View</div>
+          <button class="quick-view" onclick="openModal('black.png','Black Tee','₹399')">Quick View</button>
         </div>
         <div class="product-info">
-          <h3>BLack Tee</h3>
-          <p>Athletic Gymwear</p>
+          <h3>Black Tee</h3>
+          <p class="sub">Athletic Gymwear</p>
           <div class="price-row">
             <div class="price">₹399</div>
-            <a href="https://www.instagram.com/ajwear.official" target="_blank" class="cart-btn" style="text-decoration:none; display:inline-block;">DM To Order</a>
+            <a href="https://www.instagram.com/ajwear.official" target="_blank" class="cart-btn">DM To Order</a>
           </div>
         </div>
       </div>
-        <div class="product-card">
+      <div class="product-card">
         <div class="product-image">
-          <div class="wishlist">♡</div>
-          <img src="white.png" alt="Black Tee">
-          <div class="quick-view">Quick View</div>
+          <button class="wishlist" onclick="toggleWish(this)">&#9825;</button>
+          <img src="white.png" alt="White Tee">
+          <button class="quick-view" onclick="openModal('white.png','White Tee','₹399')">Quick View</button>
         </div>
         <div class="product-info">
           <h3>White Tee</h3>
-          <p>Athletic Gymwear</p>
+          <p class="sub">Athletic Gymwear</p>
           <div class="price-row">
             <div class="price">₹399</div>
-            <a href="https://www.instagram.com/ajwear.official" target="_blank" class="cart-btn" style="text-decoration:none; display:inline-block;">DM To Order</a>
+            <a href="https://www.instagram.com/ajwear.official" target="_blank" class="cart-btn">DM To Order</a>
           </div>
         </div>
       </div>
-        <div class="product-card">
+      <div class="product-card">
         <div class="product-image">
-          <div class="wishlist">♡</div>
-          <img src="sage.png" alt="Black Tee">
-          <div class="quick-view">Quick View</div>
+          <button class="wishlist" onclick="toggleWish(this)">&#9825;</button>
+          <img src="sage.png" alt="Sage Tee">
+          <button class="quick-view" onclick="openModal('sage.png','Sage Tee','₹399')">Quick View</button>
         </div>
         <div class="product-info">
           <h3>Sage Tee</h3>
-          <p>Athletic Gymwear</p>
+          <p class="sub">Athletic Gymwear</p>
           <div class="price-row">
             <div class="price">₹399</div>
-            <a href="https://www.instagram.com/ajwear.official" target="_blank" class="cart-btn" style="text-decoration:none; display:inline-block;">DM To Order</a>
+            <a href="https://www.instagram.com/ajwear.official" target="_blank" class="cart-btn">DM To Order</a>
           </div>
         </div>
       </div>
-        <div class="product-card">
+      <div class="product-card">
         <div class="product-image">
-          <div class="wishlist">♡</div>
-          <img src="olive.png" alt="Black Tee">
-          <div class="quick-view">Quick View</div>
+          <button class="wishlist" onclick="toggleWish(this)">&#9825;</button>
+          <img src="olive.png" alt="Olive Tee">
+          <button class="quick-view" onclick="openModal('olive.png','Olive Tee','₹399')">Quick View</button>
         </div>
         <div class="product-info">
           <h3>Olive Tee</h3>
-          <p>Athletic Gymwear</p>
+          <p class="sub">Athletic Gymwear</p>
           <div class="price-row">
             <div class="price">₹399</div>
-            <a href="https://www.instagram.com/ajwear.official" target="_blank" class="cart-btn" style="text-decoration:none; display:inline-block;">DM To Order</a>
+            <a href="https://www.instagram.com/ajwear.official" target="_blank" class="cart-btn">DM To Order</a>
           </div>
         </div>
       </div>
-        <div class="product-card">
-        <div class="product-image">
-          <div class="wishlist">♡</div>
-          <img src="Navy.png" alt="Black Tee">
-          <div class="quick-view">Quick View</div>
-        </div>
-        <div class="product-info">
-          <h3>navy Tee</h3>
-          <p>Athletic Gymwear</p>
-          <div class="price-row">
-            <div class="price">₹399</div>
-            <a href="https://www.instagram.com/ajwear.official" target="_blank" class="cart-btn" style="text-decoration:none; display:inline-block;">DM To Order</a>
-          </div>
-        </div>
-      </div>
-
       <div class="product-card">
         <div class="product-image">
-          <div class="wishlist">♡</div>
+          <button class="wishlist" onclick="toggleWish(this)">&#9825;</button>
+          <img src="navy.png" alt="Navy Tee">
+          <button class="quick-view" onclick="openModal('navy.png','Navy Tee','₹399')">Quick View</button>
+        </div>
+        <div class="product-info">
+          <h3>Navy Tee</h3>
+          <p class="sub">Athletic Gymwear</p>
+          <div class="price-row">
+            <div class="price">₹399</div>
+            <a href="https://www.instagram.com/ajwear.official" target="_blank" class="cart-btn">DM To Order</a>
+          </div>
+        </div>
+      </div>
+      <div class="product-card">
+        <div class="product-image">
+          <button class="wishlist" onclick="toggleWish(this)">&#9825;</button>
           <img src="burgundy.png" alt="Burgundy Tee">
-          <div class="quick-view">Quick View</div>
+          <button class="quick-view" onclick="openModal('burgundy.png','Burgundy Tee','₹399')">Quick View</button>
         </div>
         <div class="product-info">
           <h3>Burgundy Tee</h3>
-          <p>Luxury Streetwear</p>
+          <p class="sub">Luxury Streetwear</p>
           <div class="price-row">
             <div class="price">₹399</div>
-            <a href="https://www.instagram.com/ajwear.official" target="_blank" class="cart-btn" style="text-decoration:none; display:inline-block;">DM To Order</a>
+            <a href="https://www.instagram.com/ajwear.official" target="_blank" class="cart-btn">DM To Order</a>
           </div>
         </div>
       </div>
-
       <div class="product-card">
         <div class="product-image">
-          <div class="wishlist">♡</div>
+          <button class="wishlist" onclick="toggleWish(this)">&#9825;</button>
           <img src="grey.png" alt="Grey Tee">
-          <div class="quick-view">Quick View</div>
+          <button class="quick-view" onclick="openModal('grey.png','Grey Tee','₹399')">Quick View</button>
         </div>
         <div class="product-info">
           <h3>Grey Tee</h3>
-          <p>Minimal Premium Wear</p>
+          <p class="sub">Minimal Premium Wear</p>
           <div class="price-row">
             <div class="price">₹399</div>
-            <a href="https://www.instagram.com/ajwear.official" target="_blank" class="cart-btn" style="text-decoration:none; display:inline-block;">DM To Order</a>
+            <a href="https://www.instagram.com/ajwear.official" target="_blank" class="cart-btn">DM To Order</a>
           </div>
         </div>
       </div>
-
     </div>
   </section>
-
   <section id="story">
     <div class="story">
       <img src="maroon.png" alt="AJ Story">
-
       <div class="story-content">
         <h2>Wear Confidence.</h2>
-        <p>
-          AJ Wear was built to represent ambition, discipline, and modern youth culture. Every piece is crafted with premium fabrics, elevated fits, and luxury detailing.
-        </p>
-
-        <p>
-          Inspired by elite streetwear aesthetics and high-performance gym culture, AJ Wear creates fashion designed to dominate both lifestyle and movement.
-        </p>
-
+        <p>AJ Wear was built to represent ambition, discipline, and modern youth culture. Every piece is crafted with premium fabrics, elevated fits, and luxury detailing.</p>
+        <p>Inspired by elite streetwear aesthetics and high-performance gym culture, AJ Wear creates fashion designed to dominate both lifestyle and movement.</p>
         <a href="#arrivals" class="btn">Discover More</a>
       </div>
     </div>
   </section>
-
   <section id="arrivals">
     <div class="section-title">
       <h2>New Arrivals</h2>
       <p>Modern silhouettes, premium construction, and clean aesthetics designed for everyday dominance.</p>
     </div>
-
     <div class="products-grid">
       <div class="product-card">
         <div class="product-image">
-          <img src="black.png" alt="Arrival">
+          <button class="wishlist" onclick="toggleWish(this)">&#9825;</button>
+          <img src="black.png" alt="Shadow Black Tee">
+          <button class="quick-view" onclick="openModal('black.png','Shadow Black Tee','₹399')">Quick View</button>
         </div>
         <div class="product-info">
           <h3>Shadow Black Tee</h3>
           <div class="price-row">
             <div class="price">₹399</div>
-            <a href="https://www.instagram.com/ajwear.official" target="_blank" class="cart-btn" style="text-decoration:none; display:inline-block;">DM To Order</a>
+            <a href="https://www.instagram.com/ajwear.official" target="_blank" class="cart-btn">DM To Order</a>
           </div>
         </div>
       </div>
-
       <div class="product-card">
         <div class="product-image">
-          <img src="grey.png" alt="Arrival">
+          <button class="wishlist" onclick="toggleWish(this)">&#9825;</button>
+          <img src="grey.png" alt="Grey Tee">
+          <button class="quick-view" onclick="openModal('grey.png','Grey Tee','₹399')">Quick View</button>
         </div>
         <div class="product-info">
           <h3>Grey Tee</h3>
           <div class="price-row">
             <div class="price">₹399</div>
-            <a href="https://www.instagram.com/ajwear.official" target="_blank" class="cart-btn" style="text-decoration:none; display:inline-block;">DM To Order</a>
+            <a href="https://www.instagram.com/ajwear.official" target="_blank" class="cart-btn">DM To Order</a>
           </div>
         </div>
       </div>
-         <div class="product-card">
+      <div class="product-card">
         <div class="product-image">
-          <img src="White.png" alt="Arrival">
+          <button class="wishlist" onclick="toggleWish(this)">&#9825;</button>
+          <img src="white.png" alt="White Tee">
+          <button class="quick-view" onclick="openModal('white.png','White Tee','₹399')">Quick View</button>
         </div>
         <div class="product-info">
           <h3>White Tee</h3>
           <div class="price-row">
             <div class="price">₹399</div>
-            <a href="https://www.instagram.com/ajwear.official" target="_blank" class="cart-btn" style="text-decoration:none; display:inline-block;">DM To Order</a>
+            <a href="https://www.instagram.com/ajwear.official" target="_blank" class="cart-btn">DM To Order</a>
           </div>
         </div>
       </div>
-         <div class="product-card">
+      <div class="product-card">
         <div class="product-image">
-          <img src="sage.png" alt="Arrival">
+          <button class="wishlist" onclick="toggleWish(this)">&#9825;</button>
+          <img src="sage.png" alt="Sage Tee">
+          <button class="quick-view" onclick="openModal('sage.png','Sage Tee','₹399')">Quick View</button>
         </div>
         <div class="product-info">
           <h3>Sage Tee</h3>
           <div class="price-row">
             <div class="price">₹399</div>
-            <a href="https://www.instagram.com/ajwear.official" target="_blank" class="cart-btn" style="text-decoration:none; display:inline-block;">DM To Order</a>
+            <a href="https://www.instagram.com/ajwear.official" target="_blank" class="cart-btn">DM To Order</a>
           </div>
         </div>
       </div>
-
       <div class="product-card">
         <div class="product-image">
-          <img src="burgundy.png" alt="Arrival">
+          <button class="wishlist" onclick="toggleWish(this)">&#9825;</button>
+          <img src="burgundy.png" alt="Burgundy Tee">
+          <button class="quick-view" onclick="openModal('burgundy.png','Burgundy Tee','₹399')">Quick View</button>
         </div>
         <div class="product-info">
           <h3>Burgundy Tee</h3>
           <div class="price-row">
             <div class="price">₹399</div>
-            <a href="https://www.instagram.com/ajwear.official" target="_blank" class="cart-btn" style="text-decoration:none; display:inline-block;">DM To Order</a>
+            <a href="https://www.instagram.com/ajwear.official" target="_blank" class="cart-btn">DM To Order</a>
           </div>
         </div>
       </div>
     </div>
   </section>
-
   <section>
     <div class="section-title">
       <h2>Why Choose AJ</h2>
       <p>Premium craftsmanship designed for modern streetwear athletes and fashion-forward creators.</p>
     </div>
-
     <div class="features">
       <div class="feature-card">
         <h3>Premium Fabric</h3>
         <p>Ultra-soft breathable materials engineered for comfort and movement.</p>
       </div>
-
       <div class="feature-card">
         <h3>Luxury Fit</h3>
         <p>Modern silhouettes inspired by elite global fashion aesthetics.</p>
       </div>
-
       <div class="feature-card">
         <h3>Streetwear Identity</h3>
         <p>Bold minimalism mixed with cinematic luxury styling.</p>
       </div>
-
       <div class="feature-card">
         <h3>Fast Shipping</h3>
         <p>Premium delivery experience built for modern customers.</p>
       </div>
     </div>
   </section>
-
   <section id="gallery">
     <div class="section-title">
       <h2>Luxury Lookbook</h2>
       <p>Editorial-inspired visuals capturing the power, style, and confidence behind AJ Wear.</p>
     </div>
-
     <div class="gallery">
       <img src="black.png" alt="Gallery">
       <img src="grey.png" alt="Gallery">
       <img src="burgundy.png" alt="Gallery">
       <img src="maroon.png" alt="Gallery">
-       <img src="white.png" alt="Gallery">
-       <img src="sage.png" alt="Gallery">
-       <img src="olive.png" alt="Gallery">
-       <img src="navy.png" alt="Gallery">
+      <img src="white.png" alt="Gallery">
+      <img src="sage.png" alt="Gallery">
+      <img src="olive.png" alt="Gallery">
+      <img src="navy.png" alt="Gallery">
     </div>
   </section>
-
   <section>
     <div class="drop-banner">
       <h2>PREMIUM STREETWEAR ESSENTIALS</h2>
       <p>Luxury athletic wear designed for confidence, movement, and modern street culture.</p>
-
       <a href="https://www.instagram.com/ajwear.official" target="_blank" class="btn">Explore Collection</a>
     </div>
   </section>
-
   <section>
     <div class="section-title">
       <h2>Testimonials</h2>
       <p>Trusted by creators, athletes, and fashion-forward individuals.</p>
     </div>
-
     <div class="testimonials">
       <div class="testimonial">
-        <p>
-          “The fit, quality, and aesthetic feel like luxury designer streetwear. AJ Wear genuinely stands out.”
-        </p>
+        <p>"The fit, quality, and aesthetic feel like luxury designer streetwear. AJ Wear genuinely stands out."</p>
         <h4>— Fitness Creator</h4>
       </div>
-
       <div class="testimonial">
-        <p>
-          “Premium feel from packaging to fabric quality. Looks insane both in gym and casual styling.”
-        </p>
+        <p>"Premium feel from packaging to fabric quality. Looks insane both in gym and casual styling."</p>
         <h4>— Athlete</h4>
       </div>
-
       <div class="testimonial">
-        <p>
-          “Minimal, clean, and powerful. The branding and overall vibe feel world-class.”
-        </p>
+        <p>"Minimal, clean, and powerful. The branding and overall vibe feel world-class."</p>
         <h4>— Streetwear Enthusiast</h4>
       </div>
     </div>
   </section>
-
   <section>
     <div class="newsletter">
       <h2>Join The AJ Wear Community</h2>
       <p>Get early access to exclusive drops, premium collections, fitness motivation, and limited releases directly through our WhatsApp community.</p>
-
-      <div class="newsletter-form" style="justify-content:center;">
-        <a href="https://chat.whatsapp.com/GxbmOKKbvaO3CyNVsZZv3E" target="_blank" class="btn">Join Community</a>
-      </div>
+      <a href="https://chat.whatsapp.com/GxbmOKKbvaO3CyNVsZZv3E" target="_blank" class="btn">Join Community</a>
     </div>
   </section>
-
   <footer id="contact">
     <div class="footer-grid">
       <div>
         <img src="logo.png" alt="AJ Wear">
         <p>Luxury streetwear engineered for confidence, movement, and modern culture.</p>
       </div>
-
       <div>
         <h3>Navigation</h3>
         <p><a href="#">Home</a></p>
@@ -1113,15 +735,13 @@
         <p><a href="#story">About</a></p>
         <p><a href="#gallery">Lookbook</a></p>
       </div>
-
       <div>
         <h3>Social</h3>
-        <p><a href="#">@ajwear.official</a></p>
+        <p><a href="https://www.instagram.com/ajwear.official" target="_blank">@ajwear.official</a></p>
         <p><a href="#">TikTok</a></p>
         <p><a href="#">YouTube</a></p>
         <p><a href="#">Pinterest</a></p>
       </div>
-
       <div>
         <h3>Contact</h3>
         <p>support@ajwear.com</p>
@@ -1130,122 +750,73 @@
         <p>Custom Orders Available</p>
       </div>
     </div>
-
-    <div class="copyright">
-      © 2026 AJ Wear. All Rights Reserved.
-    </div>
+    <div class="copyright">© 2026 AJ Wear. All Rights Reserved.</div>
   </footer>
-
-  <div class="modal" id="productModal">
-    <div class="close-modal">×</div>
+  <div class="modal" id="productModal" onclick="handleModalClick(event)">
+    <button class="close-modal" onclick="closeModal()">×</button>
     <div class="modal-content">
-      <img id="modalProductImage" src="" alt="Product">
-
+      <img id="modalImg" src="" alt="Product">
       <div class="modal-details">
-        <h2>Midnight Performance Tee</h2>
-        <p style="color: var(--muted); line-height: 1.8; margin-top: 15px;">
+        <h2 id="modalTitle">Product</h2>
+        <p style="color:var(--muted);line-height:1.8;margin-top:15px;">
           Premium lightweight gymwear crafted for comfort, movement, and elevated aesthetics.
         </p>
-
         <div class="sizes">
-          <div class="size">S</div>
-          <div class="size">M</div>
-          <div class="size">L</div>
-          <div class="size">XL</div>
+          <div class="size" onclick="selectSize(this)">S</div>
+          <div class="size" onclick="selectSize(this)">M</div>
+          <div class="size" onclick="selectSize(this)">L</div>
+          <div class="size" onclick="selectSize(this)">XL</div>
         </div>
-
-        <h3 style="margin-bottom: 25px;">₹399</h3>
-
-        <button class="btn">DM To Order</button>
+        <h3 id="modalPrice" style="margin-bottom:25px;">₹399</h3>
+        <a href="https://www.instagram.com/ajwear.official" target="_blank" class="btn">DM To Order</a>
       </div>
     </div>
   </div>
-
   <script>
     window.addEventListener('load', () => {
       setTimeout(() => {
-        document.querySelector('.loader').style.opacity = '0';
-        document.querySelector('.loader').style.visibility = 'hidden';
+        const loader = document.getElementById('loader');
+        loader.style.opacity = '0';
+        loader.style.visibility = 'hidden';
       }, 2600);
     });
-
     document.addEventListener('mousemove', (e) => {
       document.body.style.setProperty('--x', e.clientX + 'px');
       document.body.style.setProperty('--y', e.clientY + 'px');
     });
-
-    gsap.registerPlugin(ScrollTrigger);
-
-    gsap.utils.toArray('section').forEach(section => {
-      gsap.from(section, {
-        opacity: 0,
-        y: 80,
-        duration: 1,
-        ease: 'power4.out',
-        scrollTrigger: {
-          trigger: section,
-          start: 'top 80%'
-        }
-      })
-    });
-
-    gsap.from('.hero-content h1', {
-      y: 80,
-      opacity: 0,
-      duration: 1.2,
-      delay: 0.5
-    });
-
-    gsap.from('.hero-image img', {
-      scale: 0.8,
-      opacity: 0,
-      duration: 1.4,
-      delay: 0.8
-    });
-
-    const modal = document.getElementById('productModal');
-
-    const modalImage = document.getElementById('modalProductImage');
-
-    const modalTitle = document.querySelector('.modal-details h2');
-
-document.querySelectorAll('.product-card').forEach(card => {
-
-  const quickViewBtn = card.querySelector('.quick-view');
-
-  quickViewBtn.addEventListener('click', () => {
-
-    const productImg =
-      card.querySelector('.product-image img').getAttribute('src');
-
-    const productTitle =
-      card.querySelector('.product-info h3').innerText;
-
-    modalImage.src = productImg;
-
-    modalTitle.innerText = productTitle;
-
-    modal.classList.add('active');
-
-    document.body.style.overflow = 'hidden';
-  });
-
-});
-
-function closeModal() {
-  modal.classList.remove('active');
-  document.body.style.overflow = 'auto';
-}
-
-document.querySelector('.close-modal').addEventListener('click', closeModal);
-
-window.addEventListener('click', (e) => {
-  if (e.target === modal) {
-    closeModal();
-  }
-});
-
-    
+    function toggleMenu() {
+      const menu = document.getElementById('navMenu');
+      const btn = document.getElementById('hamburger');
+      const open = menu.classList.toggle('nav-open');
+      btn.innerHTML = open ? '✕' : '&#9776;';
+    }
+    function closeMenu() {
+      document.getElementById('navMenu').classList.remove('nav-open');
+      document.getElementById('hamburger').innerHTML = '&#9776;';
+    }
+    function toggleWish(btn) {
+      btn.classList.toggle('wished');
+      btn.innerHTML = btn.classList.contains('wished') ? '&#9829;' : '&#9825;';
+    }
+    function openModal(img, title, price) {
+      document.getElementById('modalImg').src = img;
+      document.getElementById('modalTitle').innerText = title;
+      document.getElementById('modalPrice').innerText = price;
+      document.querySelectorAll('.size').forEach(s => s.classList.remove('active'));
+      document.getElementById('productModal').classList.add('active');
+      document.body.style.overflow = 'hidden';
+    }
+    function closeModal() {
+      document.getElementById('productModal').classList.remove('active');
+      document.body.style.overflow = '';
+    }
+    function handleModalClick(e) {
+      if (e.target === document.getElementById('productModal')) closeModal();
+    }
+    function selectSize(el) {
+      document.querySelectorAll('.size').forEach(s => s.classList.remove('active'));
+      el.classList.add('active');
+    }
   </script>
 </body>
 </html>
