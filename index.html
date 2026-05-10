@@ -763,7 +763,67 @@
           <div class="quick-view">Quick View</div>
         </div>
         <div class="product-info">
-          <h3>Midnight Performance Tee</h3>
+          <h3>Black Tee</h3>
+          <p>Athletic Gymwear</p>
+          <div class="price-row">
+            <div class="price">₹399</div>
+            <a href="https://www.instagram.com/ajwear.official" target="_blank" class="cart-btn" style="text-decoration:none; display:inline-block;">DM To Order</a>
+          </div>
+        </div>
+      </div>
+       <div class="product-card">
+        <div class="product-image">
+          <div class="wishlist">♡</div>
+          <img src="white.png" alt="Black Tee">
+          <div class="quick-view">Quick View</div>
+        </div>
+        <div class="product-info">
+          <h3>White Tee</h3>
+          <p>Athletic Gymwear</p>
+          <div class="price-row">
+            <div class="price">₹399</div>
+            <a href="https://www.instagram.com/ajwear.official" target="_blank" class="cart-btn" style="text-decoration:none; display:inline-block;">DM To Order</a>
+          </div>
+        </div>
+      </div>
+       <div class="product-card">
+        <div class="product-image">
+          <div class="wishlist">♡</div>
+          <img src="sage.png" alt="Black Tee">
+          <div class="quick-view">Quick View</div>
+        </div>
+        <div class="product-info">
+          <h3>Sage Tee</h3>
+          <p>Athletic Gymwear</p>
+          <div class="price-row">
+            <div class="price">₹399</div>
+            <a href="https://www.instagram.com/ajwear.official" target="_blank" class="cart-btn" style="text-decoration:none; display:inline-block;">DM To Order</a>
+          </div>
+        </div>
+      </div>
+       <div class="product-card">
+        <div class="product-image">
+          <div class="wishlist">♡</div>
+          <img src="olive.png" alt="Black Tee">
+          <div class="quick-view">Quick View</div>
+        </div>
+        <div class="product-info">
+          <h3>Olive Tee</h3>
+          <p>Athletic Gymwear</p>
+          <div class="price-row">
+            <div class="price">₹399</div>
+            <a href="https://www.instagram.com/ajwear.official" target="_blank" class="cart-btn" style="text-decoration:none; display:inline-block;">DM To Order</a>
+          </div>
+        </div>
+      </div>
+       <div class="product-card">
+        <div class="product-image">
+          <div class="wishlist">♡</div>
+          <img src="navy.png" alt="Black Tee">
+          <div class="quick-view">Quick View</div>
+        </div>
+        <div class="product-info">
+          <h3>Navy Tee</h3>
           <p>Athletic Gymwear</p>
           <div class="price-row">
             <div class="price">₹399</div>
@@ -919,32 +979,10 @@
 
   <section>
     <div class="drop-banner">
-      <h2>LIMITED DROP 2026</h2>
-      <p>Exclusive release. Limited quantities. No restocks.</p>
+      <h2>PREMIUM STREETWEAR ESSENTIALS</h2>
+      <p>Luxury athletic wear designed for confidence, movement, and modern street culture.</p>
 
-      <div class="countdown">
-        <div class="count-box">
-          <h3 id="days">12</h3>
-          <span>Days</span>
-        </div>
-
-        <div class="count-box">
-          <h3 id="hours">18</h3>
-          <span>Hours</span>
-        </div>
-
-        <div class="count-box">
-          <h3 id="minutes">44</h3>
-          <span>Minutes</span>
-        </div>
-
-        <div class="count-box">
-          <h3 id="seconds">29</h3>
-          <span>Seconds</span>
-        </div>
-      </div>
-
-      <a href="#" class="btn">Secure Your Drop</a>
+      <a href="https://www.instagram.com/ajwear.official" target="_blank" class="btn">Explore Collection</a>
     </div>
   </section>
 
@@ -1092,44 +1130,43 @@
       duration: 1.4,
       delay: 0.8
     });
+```javascript
+const modal = document.getElementById('productModal');
+const modalImage = document.querySelector('.modal-content img');
+const modalTitle = document.querySelector('.modal-details h2');
 
-    const modal = document.getElementById('productModal');
+document.querySelectorAll('.product-card').forEach(card => {
+  const quickViewBtn = card.querySelector('.quick-view');
 
-    document.querySelectorAll('.quick-view').forEach(btn => {
-      btn.addEventListener('click', () => {
-        modal.style.display = 'flex';
-      })
-    });
+  quickViewBtn.addEventListener('click', () => {
 
-    document.querySelector('.close-modal').addEventListener('click', () => {
-      modal.style.display = 'none';
-    });
+    // Get image from clicked card
+    const productImg = card.querySelector('.product-image img').src;
 
-    window.addEventListener('click', (e) => {
-      if(e.target === modal) {
-        modal.style.display = 'none';
-      }
-    });
+    // Get title from clicked card
+    const productTitle = card.querySelector('.product-info h3').innerText;
 
-    const targetDate = new Date();
-    targetDate.setDate(targetDate.getDate() + 12);
+    // Update modal dynamically
+    modalImage.src = productImg;
+    modalTitle.innerText = productTitle;
 
-    function updateCountdown() {
-      const now = new Date();
-      const diff = targetDate - now;
+    // Open modal
+    modal.style.display = 'flex';
+  });
+});
 
-      const days = Math.floor(diff / (1000 * 60 * 60 * 24));
-      const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
-      const minutes = Math.floor((diff / (1000 * 60)) % 60);
-      const seconds = Math.floor((diff / 1000) % 60);
+document.querySelector('.close-modal').addEventListener('click', () => {
+  modal.style.display = 'none';
+});
 
-      document.getElementById('days').innerText = days;
-      document.getElementById('hours').innerText = hours;
-      document.getElementById('minutes').innerText = minutes;
-      document.getElementById('seconds').innerText = seconds;
-    }
+window.addEventListener('click', (e) => {
+  if (e.target === modal) {
+    modal.style.display = 'none';
+  }
+});
+```
 
-    setInterval(updateCountdown, 1000);
+    
   </script>
 </body>
 </html>
