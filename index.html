@@ -763,7 +763,7 @@
           <div class="quick-view">Quick View</div>
         </div>
         <div class="product-info">
-          <h3>Black Tee</h3>
+          <h3>BLack Tee</h3>
           <p>Athletic Gymwear</p>
           <div class="price-row">
             <div class="price">₹399</div>
@@ -771,7 +771,7 @@
           </div>
         </div>
       </div>
-       <div class="product-card">
+        <div class="product-card">
         <div class="product-image">
           <div class="wishlist">♡</div>
           <img src="white.png" alt="Black Tee">
@@ -786,7 +786,7 @@
           </div>
         </div>
       </div>
-       <div class="product-card">
+        <div class="product-card">
         <div class="product-image">
           <div class="wishlist">♡</div>
           <img src="sage.png" alt="Black Tee">
@@ -801,7 +801,7 @@
           </div>
         </div>
       </div>
-       <div class="product-card">
+        <div class="product-card">
         <div class="product-image">
           <div class="wishlist">♡</div>
           <img src="olive.png" alt="Black Tee">
@@ -816,14 +816,14 @@
           </div>
         </div>
       </div>
-       <div class="product-card">
+        <div class="product-card">
         <div class="product-image">
           <div class="wishlist">♡</div>
-          <img src="navy.png" alt="Black Tee">
+          <img src="Navy.png" alt="Black Tee">
           <div class="quick-view">Quick View</div>
         </div>
         <div class="product-info">
-          <h3>Navy Tee</h3>
+          <h3>navy Tee</h3>
           <p>Athletic Gymwear</p>
           <div class="price-row">
             <div class="price">₹399</div>
@@ -898,7 +898,7 @@
           <img src="black.png" alt="Arrival">
         </div>
         <div class="product-info">
-          <h3>Shadow Active Tee</h3>
+          <h3>Shadow Black Tee</h3>
           <div class="price-row">
             <div class="price">₹399</div>
             <a href="https://www.instagram.com/ajwear.official" target="_blank" class="cart-btn" style="text-decoration:none; display:inline-block;">DM To Order</a>
@@ -911,7 +911,31 @@
           <img src="grey.png" alt="Arrival">
         </div>
         <div class="product-info">
-          <h3>Urban Motion Fit</h3>
+          <h3>Grey Tee</h3>
+          <div class="price-row">
+            <div class="price">₹399</div>
+            <a href="https://www.instagram.com/ajwear.official" target="_blank" class="cart-btn" style="text-decoration:none; display:inline-block;">DM To Order</a>
+          </div>
+        </div>
+      </div>
+         <div class="product-card">
+        <div class="product-image">
+          <img src="White.png" alt="Arrival">
+        </div>
+        <div class="product-info">
+          <h3>White Tee</h3>
+          <div class="price-row">
+            <div class="price">₹399</div>
+            <a href="https://www.instagram.com/ajwear.official" target="_blank" class="cart-btn" style="text-decoration:none; display:inline-block;">DM To Order</a>
+          </div>
+        </div>
+      </div>
+         <div class="product-card">
+        <div class="product-image">
+          <img src="sage.png" alt="Arrival">
+        </div>
+        <div class="product-info">
+          <h3>Sage Tee</h3>
           <div class="price-row">
             <div class="price">₹399</div>
             <a href="https://www.instagram.com/ajwear.official" target="_blank" class="cart-btn" style="text-decoration:none; display:inline-block;">DM To Order</a>
@@ -924,7 +948,7 @@
           <img src="burgundy.png" alt="Arrival">
         </div>
         <div class="product-info">
-          <h3>Maroon Velocity Tee</h3>
+          <h3>Burgundy Tee</h3>
           <div class="price-row">
             <div class="price">₹399</div>
             <a href="https://www.instagram.com/ajwear.official" target="_blank" class="cart-btn" style="text-decoration:none; display:inline-block;">DM To Order</a>
@@ -974,6 +998,10 @@
       <img src="grey.png" alt="Gallery">
       <img src="burgundy.png" alt="Gallery">
       <img src="maroon.png" alt="Gallery">
+       <img src="white.png" alt="Gallery">
+       <img src="sage.png" alt="Gallery">
+       <img src="olive.png" alt="Gallery">
+       <img src="navy.png" alt="Gallery">
     </div>
   </section>
 
@@ -1067,7 +1095,7 @@
   <div class="modal" id="productModal">
     <div class="close-modal">×</div>
     <div class="modal-content">
-      <img src="black.png" alt="Product">
+      <img id="modalProductImage" src="" alt="Product">
 
       <div class="modal-details">
         <h2>Midnight Performance Tee</h2>
@@ -1130,41 +1158,43 @@
       duration: 1.4,
       delay: 0.8
     });
-```javascript
-const modal = document.getElementById('productModal');
-const modalImage = document.querySelector('.modal-content img');
-const modalTitle = document.querySelector('.modal-details h2');
 
-document.querySelectorAll('.product-card').forEach(card => {
-  const quickViewBtn = card.querySelector('.quick-view');
+    const modal = document.getElementById('productModal');
 
-  quickViewBtn.addEventListener('click', () => {
+    const modalImage = document.getElementById('modalProductImage');
 
-    // Get image from clicked card
-    const productImg = card.querySelector('.product-image img').src;
+    const modalTitle = document.querySelector('.modal-details h2');
 
-    // Get title from clicked card
-    const productTitle = card.querySelector('.product-info h3').innerText;
+    document.querySelectorAll('.product-card').forEach(card => {
 
-    // Update modal dynamically
-    modalImage.src = productImg;
-    modalTitle.innerText = productTitle;
+      const quickViewBtn = card.querySelector('.quick-view');
 
-    // Open modal
-    modal.style.display = 'flex';
-  });
-});
+      quickViewBtn.addEventListener('click', () => {
 
-document.querySelector('.close-modal').addEventListener('click', () => {
-  modal.style.display = 'none';
-});
+        const productImg =
+          card.querySelector('.product-image img').getAttribute('src');
 
-window.addEventListener('click', (e) => {
-  if (e.target === modal) {
-    modal.style.display = 'none';
-  }
-});
-```
+        const productTitle =
+          card.querySelector('.product-info h3').innerText;
+
+        modalImage.src = productImg;
+
+        modalTitle.innerText = productTitle;
+
+        modal.style.display = 'flex';
+      });
+
+    });
+
+    document.querySelector('.close-modal').addEventListener('click', () => {
+      modal.style.display = 'none';
+    });
+
+    window.addEventListener('click', (e) => {
+      if (e.target === modal) {
+        modal.style.display = 'none';
+      }
+    });
 
     
   </script>
