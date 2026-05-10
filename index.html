@@ -1,734 +1,1189 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="AJ Wear — Premium performance gymwear built for serious athletes. Sweat-wicking, athletic-fit tees starting at ₹399. Custom printing available. Pan-India delivery.">
-  <meta name="keywords" content="gym wear India, gym t shirts for men, fitness t shirts, workout t shirts, gym clothing brand, athletic wear India, buy gym t shirts online India, premium gym wear India, custom gym t shirts India, personalised gym t shirts, gym t shirts with name printing, minimalist gym wear, aesthetic gym clothing, streetwear gym style, fitness apparel India">
-  <title>AJ Wear — Built For The Grind</title>
-  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:wght@300;400;500;600&family=Barlow+Condensed:wght@300;400;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="style.css">
-  <link rel="icon" type="image/png" href="logo.png">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AJ Wear — Built For The Bold</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+
+  <style>
+    :root {
+      --bg: #050505;
+      --card: rgba(255,255,255,0.05);
+      --text: #ffffff;
+      --muted: #a9a9a9;
+      --border: rgba(255,255,255,0.1);
+      --accent: #5d8bff;
+      --shadow: 0 10px 40px rgba(0,0,0,0.6);
+      --radius: 22px;
+      --transition: all 0.45s ease;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: 'Montserrat', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      overflow-x: hidden;
+    }
+
+    body::before {
+      content: '';
+      position: fixed;
+      width: 500px;
+      height: 500px;
+      background: radial-gradient(circle, rgba(93,139,255,0.12), transparent 60%);
+      pointer-events: none;
+      border-radius: 50%;
+      transform: translate(-50%, -50%);
+      z-index: 0;
+      left: var(--x, 50%);
+      top: var(--y, 50%);
+      transition: 0.08s linear;
+    }
+
+    .loader {
+      position: fixed;
+      inset: 0;
+      background: #000;
+      z-index: 9999;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      gap: 20px;
+      transition: 1s ease;
+    }
+
+    .loader img {
+      width: 120px;
+      animation: pulse 2s infinite;
+    }
+
+    .loader-bar {
+      width: 200px;
+      height: 4px;
+      background: rgba(255,255,255,0.1);
+      overflow: hidden;
+      border-radius: 20px;
+    }
+
+    .loader-bar span {
+      display: block;
+      width: 0%;
+      height: 100%;
+      background: linear-gradient(90deg, white, var(--accent));
+      animation: loading 2.5s forwards;
+    }
+
+    @keyframes loading {
+      to { width: 100%; }
+    }
+
+    @keyframes pulse {
+      0%,100% { transform: scale(1); opacity: 1; }
+      50% { transform: scale(1.08); opacity: 0.7; }
+    }
+
+    nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      padding: 18px 7%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      z-index: 1000;
+      backdrop-filter: blur(12px);
+      background: rgba(0,0,0,0.35);
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+    }
+
+    nav img {
+      width: 100px;
+    }
+
+    nav ul {
+      display: flex;
+      gap: 32px;
+      list-style: none;
+    }
+
+    nav ul li a {
+      color: white;
+      text-decoration: none;
+      font-size: 0.95rem;
+      letter-spacing: 1px;
+      transition: var(--transition);
+    }
+
+    nav ul li a:hover {
+      color: var(--accent);
+    }
+
+    .nav-icons {
+      display: flex;
+      gap: 18px;
+      font-size: 1.1rem;
+    }
+
+    .hero {
+      min-height: 100vh;
+      display: grid;
+      grid-template-columns: repeat(2,1fr);
+      align-items: center;
+      padding: 0 7%;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(120deg, rgba(0,0,0,0.8), rgba(0,0,0,0.3));
+      z-index: 1;
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 2;
+    }
+
+    .hero-content p {
+      color: var(--accent);
+      letter-spacing: 3px;
+      margin-bottom: 20px;
+      text-transform: uppercase;
+    }
+
+    .hero-content h1 {
+      font-size: clamp(3rem, 7vw, 7rem);
+      line-height: 0.95;
+      margin-bottom: 25px;
+      text-transform: uppercase;
+      font-weight: 900;
+    }
+
+    .hero-content h1 span {
+      color: transparent;
+      -webkit-text-stroke: 1px white;
+    }
+
+    .hero-content .desc {
+      color: var(--muted);
+      max-width: 550px;
+      line-height: 1.8;
+      margin-bottom: 35px;
+    }
+
+    .hero-buttons {
+      display: flex;
+      gap: 18px;
+      flex-wrap: wrap;
+    }
+
+    .btn {
+      padding: 15px 32px;
+      border-radius: 50px;
+      border: 1px solid rgba(255,255,255,0.1);
+      background: white;
+      color: black;
+      text-decoration: none;
+      font-weight: 700;
+      transition: var(--transition);
+      cursor: pointer;
+    }
+
+    .btn-outline {
+      background: transparent;
+      color: white;
+    }
+
+    .btn:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 30px rgba(255,255,255,0.12);
+    }
+
+    .hero-image {
+      position: relative;
+      z-index: 2;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .hero-image img {
+      width: 100%;
+      max-width: 550px;
+      filter: drop-shadow(0 40px 80px rgba(0,0,0,0.9));
+      animation: float 5s ease-in-out infinite;
+    }
+
+    @keyframes float {
+      0%,100% { transform: translateY(0px); }
+      50% { transform: translateY(-18px); }
+    }
+
+    section {
+      padding: 110px 7%;
+      position: relative;
+      z-index: 2;
+    }
+
+    .section-title {
+      display: flex;
+      justify-content: space-between;
+      align-items: end;
+      margin-bottom: 60px;
+      gap: 20px;
+      flex-wrap: wrap;
+    }
+
+    .section-title h2 {
+      font-size: clamp(2rem,5vw,4rem);
+      text-transform: uppercase;
+      font-weight: 900;
+    }
+
+    .section-title p {
+      color: var(--muted);
+      max-width: 500px;
+      line-height: 1.7;
+    }
+
+    .products-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit,minmax(260px,1fr));
+      gap: 30px;
+    }
+
+    .product-card {
+      position: relative;
+      overflow: hidden;
+      border-radius: var(--radius);
+      background: var(--card);
+      border: 1px solid var(--border);
+      backdrop-filter: blur(15px);
+      transition: var(--transition);
+    }
+
+    .product-card:hover {
+      transform: translateY(-10px);
+      box-shadow: var(--shadow);
+    }
+
+    .product-image {
+      height: 380px;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .product-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: 0.8s ease;
+    }
+
+    .product-card:hover img {
+      transform: scale(1.08);
+    }
+
+    .wishlist {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      width: 45px;
+      height: 45px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.1);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      backdrop-filter: blur(10px);
+      font-size: 1rem;
+      cursor: pointer;
+      z-index: 2;
+    }
+
+    .quick-view {
+      position: absolute;
+      bottom: -60px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: white;
+      color: black;
+      padding: 12px 25px;
+      border-radius: 50px;
+      font-weight: 700;
+      transition: 0.5s ease;
+      cursor: pointer;
+    }
+
+    .product-card:hover .quick-view {
+      bottom: 20px;
+    }
+
+    .product-info {
+      padding: 24px;
+    }
+
+    .product-info h3 {
+      font-size: 1.2rem;
+      margin-bottom: 10px;
+    }
+
+    .product-info p {
+      color: var(--muted);
+      margin-bottom: 16px;
+    }
+
+    .price-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .price {
+      font-weight: 800;
+      font-size: 1.2rem;
+    }
+
+    .cart-btn {
+      background: rgba(255,255,255,0.08);
+      border: 1px solid rgba(255,255,255,0.08);
+      color: white;
+      padding: 10px 18px;
+      border-radius: 50px;
+      cursor: pointer;
+      transition: var(--transition);
+    }
+
+    .cart-btn:hover {
+      background: white;
+      color: black;
+    }
+
+    .story {
+      display: grid;
+      grid-template-columns: repeat(2,1fr);
+      gap: 60px;
+      align-items: center;
+    }
+
+    .story img {
+      width: 100%;
+      border-radius: 30px;
+      box-shadow: var(--shadow);
+    }
+
+    .story-content h2 {
+      font-size: clamp(2rem,5vw,4rem);
+      margin-bottom: 25px;
+      text-transform: uppercase;
+    }
+
+    .story-content p {
+      color: var(--muted);
+      line-height: 2;
+      margin-bottom: 25px;
+    }
+
+    .features {
+      display: grid;
+      grid-template-columns: repeat(auto-fit,minmax(240px,1fr));
+      gap: 25px;
+    }
+
+    .feature-card {
+      padding: 35px;
+      border-radius: 25px;
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.08);
+      transition: var(--transition);
+      backdrop-filter: blur(10px);
+    }
+
+    .feature-card:hover {
+      transform: translateY(-8px);
+      background: rgba(255,255,255,0.07);
+    }
+
+    .feature-card h3 {
+      margin: 18px 0;
+      font-size: 1.2rem;
+    }
+
+    .feature-card p {
+      color: var(--muted);
+      line-height: 1.7;
+    }
+
+    .gallery {
+      columns: 3 250px;
+      gap: 20px;
+    }
+
+    .gallery img {
+      width: 100%;
+      margin-bottom: 20px;
+      border-radius: 25px;
+      transition: 0.5s ease;
+      cursor: pointer;
+    }
+
+    .gallery img:hover {
+      transform: scale(0.98);
+      filter: brightness(1.1);
+    }
+
+    .drop-banner {
+      padding: 70px;
+      border-radius: 40px;
+      background: linear-gradient(135deg, rgba(255,255,255,0.08), rgba(255,255,255,0.02));
+      border: 1px solid rgba(255,255,255,0.08);
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .drop-banner::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(circle at top right, rgba(93,139,255,0.2), transparent 40%);
+    }
+
+    .drop-banner h2 {
+      font-size: clamp(2rem,5vw,5rem);
+      margin-bottom: 20px;
+      position: relative;
+      z-index: 2;
+    }
+
+    .drop-banner p {
+      color: var(--muted);
+      margin-bottom: 30px;
+      position: relative;
+      z-index: 2;
+    }
+
+    .countdown {
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+      flex-wrap: wrap;
+      margin-bottom: 35px;
+      position: relative;
+      z-index: 2;
+    }
+
+    .count-box {
+      width: 120px;
+      height: 120px;
+      border-radius: 25px;
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.08);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .count-box h3 {
+      font-size: 2rem;
+    }
+
+    .testimonials {
+      display: grid;
+      grid-template-columns: repeat(auto-fit,minmax(300px,1fr));
+      gap: 25px;
+    }
+
+    .testimonial {
+      padding: 35px;
+      border-radius: 25px;
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.08);
+    }
+
+    .testimonial p {
+      color: var(--muted);
+      line-height: 1.9;
+      margin-bottom: 25px;
+    }
+
+    .newsletter {
+      padding: 70px;
+      border-radius: 35px;
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.08);
+      text-align: center;
+    }
+
+    .newsletter h2 {
+      font-size: clamp(2rem,5vw,4rem);
+      margin-bottom: 15px;
+    }
+
+    .newsletter p {
+      color: var(--muted);
+      margin-bottom: 30px;
+    }
+
+    .newsletter-form {
+      max-width: 700px;
+      margin: auto;
+      display: flex;
+      gap: 15px;
+      flex-wrap: wrap;
+    }
+
+    .newsletter-form input {
+      flex: 1;
+      min-width: 220px;
+      padding: 18px 22px;
+      border-radius: 50px;
+      border: 1px solid rgba(255,255,255,0.08);
+      background: rgba(255,255,255,0.06);
+      color: white;
+      outline: none;
+    }
+
+    footer {
+      padding: 80px 7% 40px;
+      border-top: 1px solid rgba(255,255,255,0.08);
+    }
+
+    .footer-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit,minmax(220px,1fr));
+      gap: 40px;
+      margin-bottom: 50px;
+    }
+
+    footer img {
+      width: 120px;
+      margin-bottom: 20px;
+    }
+
+    footer p, footer a {
+      color: var(--muted);
+      line-height: 2;
+      text-decoration: none;
+    }
+
+    .copyright {
+      text-align: center;
+      color: var(--muted);
+      padding-top: 25px;
+      border-top: 1px solid rgba(255,255,255,0.08);
+    }
+
+    .modal {
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.8);
+      backdrop-filter: blur(10px);
+      display: none;
+      justify-content: center;
+      align-items: center;
+      z-index: 999;
+      padding: 20px;
+    }
+
+    .modal-content {
+      background: #0f0f0f;
+      border-radius: 30px;
+      width: 100%;
+      max-width: 1000px;
+      display: grid;
+      grid-template-columns: repeat(2,1fr);
+      overflow: hidden;
+      border: 1px solid rgba(255,255,255,0.08);
+    }
+
+    .modal-content img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .modal-details {
+      padding: 40px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    .sizes {
+      display: flex;
+      gap: 10px;
+      margin: 25px 0;
+    }
+
+    .size {
+      width: 45px;
+      height: 45px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border: 1px solid rgba(255,255,255,0.08);
+      cursor: pointer;
+      transition: var(--transition);
+    }
+
+    .size:hover {
+      background: white;
+      color: black;
+    }
+
+    .close-modal {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      font-size: 2rem;
+      cursor: pointer;
+    }
+
+    @media(max-width: 980px) {
+      .hero,
+      .story,
+      .modal-content {
+        grid-template-columns: 1fr;
+      }
+
+      .hero {
+        padding-top: 120px;
+      }
+
+      nav ul {
+        display: none;
+      }
+
+      .hero-content {
+        margin-bottom: 50px;
+      }
+
+      .modal-content img {
+        height: 400px;
+      }
+    }
+
+    @media(max-width: 600px) {
+      section {
+        padding: 90px 6%;
+      }
+
+      .hero-content h1 {
+        font-size: 3.2rem;
+      }
+
+      .drop-banner,
+      .newsletter {
+        padding: 40px 20px;
+      }
+
+      .count-box {
+        width: 90px;
+        height: 90px;
+      }
+    }
+  </style>
 </head>
 <body>
 
-  <!-- CUSTOM CURSOR -->
-  <div class="cursor" id="cursor"></div>
-  <div class="cursor-ring" id="cursorRing"></div>
-
-  <!-- PARTICLES -->
-  <canvas id="particles"></canvas>
-
-  <!-- ══════════════════════════════════════
-       WHATSAPP STICKY BUTTON
-  ══════════════════════════════════════ -->
-  <a href="https://wa.me/918306455053?text=Hi%2C%20I%20want%20to%20order%20from%20AJ%20Wear" 
-     class="whatsapp-float" target="_blank" title="Order on WhatsApp">
-    <svg viewBox="0 0 24 24" fill="currentColor">
-      <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
-    </svg>
-    <span class="wa-label">Order Now</span>
-  </a>
-
-  <!-- ══════════════════════════════════════
-       NAVIGATION
-  ══════════════════════════════════════ -->
-  <nav id="navbar">
-    <div class="nav-logo">
-      <img src="logo.png" alt="AJ Wear">
-    </div>
-    <ul class="nav-links" id="navLinks">
-      <li><a href="#collection">Collection</a></li>
-      <li><a href="#story">Story</a></li>
-      <li><a href="#reviews">Reviews</a></li>
-      <li><a href="#order">Order</a></li>
-    </ul>
-    <a href="#order" class="nav-cta">DM to Order</a>
-    <button class="hamburger" id="hamburger" aria-label="Menu">
-      <span></span><span></span><span></span>
-    </button>
-  </nav>
-
-  <!-- Mobile Menu -->
-  <div class="mobile-menu" id="mobileMenu">
-    <a href="#collection" class="mobile-link">Collection</a>
-    <a href="#story" class="mobile-link">Story</a>
-    <a href="#reviews" class="mobile-link">Reviews</a>
-    <a href="#order" class="mobile-link">Order</a>
-    <a href="https://wa.me/918306455053" class="mobile-cta" target="_blank">WhatsApp Order →</a>
+  <div class="loader">
+    <img src="logo.png" alt="AJ Wear">
+    <div class="loader-bar"><span></span></div>
   </div>
 
-  <!-- ══════════════════════════════════════
-       HERO SECTION
-  ══════════════════════════════════════ -->
-  <section id="hero">
-    <div class="hero-bg" id="heroBg"></div>
-    <div class="hero-gradient"></div>
-    <div class="hero-glow"></div>
+  <nav>
+    <img src="logo.png" alt="AJ Wear Logo">
 
+    <ul>
+      <li><a href="#collections">Collections</a></li>
+      <li><a href="#story">Story</a></li>
+      <li><a href="#arrivals">New Arrivals</a></li>
+      <li><a href="#gallery">Lookbook</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+
+    <div class="nav-icons">
+      <span>🛒</span>
+      <span>♡</span>
+    </div>
+  </nav>
+
+  <section class="hero">
     <div class="hero-content">
-      <p class="hero-label">AJ Wear — Performance Collection 2026</p>
-      <h1 class="hero-title">
-        Built For
-        <span>The Grind</span>
-      </h1>
-      <p class="hero-sub">
-        Premium performance gymwear engineered for serious athletes.
-        Sweat-wicking. Athletic-fit. Built to perform — rep after rep.
+      <p>Luxury Streetwear Collection</p>
+      <h1>Built For <span>The Bold.</span></h1>
+      <p class="desc">
+        AJ Wear blends cinematic streetwear aesthetics with premium gymwear performance. Designed for creators, athletes, and the next generation.
       </p>
-      <div class="hero-actions">
-        <a href="#collection" class="btn-primary"><span>Shop Collection</span></a>
-        <a href="https://wa.me/918306455053?text=Hi%2C%20I%20want%20to%20order%20from%20AJ%20Wear" 
-           class="btn-ghost" target="_blank">
-          <svg viewBox="0 0 24 24" fill="currentColor" width="18">
-            <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
-          </svg>
-          WhatsApp Order
-        </a>
-      </div>
 
-      <!-- Hero social proof mini bar -->
-      <div class="hero-proof">
-        <div class="hero-proof-item">
-          <div class="hero-proof-num">500+</div>
-          <div class="hero-proof-label">Orders Delivered</div>
-        </div>
-        <div class="hero-proof-divider"></div>
-        <div class="hero-proof-item">
-          <div class="hero-proof-num">7</div>
-          <div class="hero-proof-label">Colorways</div>
-        </div>
-        <div class="hero-proof-divider"></div>
-        <div class="hero-proof-item">
-          <div class="hero-proof-num">₹399</div>
-          <div class="hero-proof-label">Starting Price</div>
-        </div>
+      <div class="hero-buttons">
+        <a href="#collections" class="btn">Shop Now</a>
+        <a href="#story" class="btn btn-outline">Explore Collection</a>
       </div>
     </div>
 
-    <div class="hero-scroll">
-      <span>Scroll</span>
-      <div class="scroll-line"></div>
+    <div class="hero-image">
+      <img src="black.png" alt="AJ Wear Hero">
     </div>
   </section>
 
-  <!-- ══════════════════════════════════════
-       TRUST BAR
-  ══════════════════════════════════════ -->
-  <div class="trust-bar">
-    <div class="trust-item">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-        <path d="M5 12h14M12 5l7 7-7 7"/>
-      </svg>
-      <span>Pan-India Delivery</span>
-    </div>
-    <div class="trust-dot"></div>
-    <div class="trust-item">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-        <rect x="3" y="11" width="18" height="11" rx="2"/>
-        <path d="M7 11V7a5 5 0 0110 0v4"/>
-      </svg>
-      <span>Secure Checkout</span>
-    </div>
-    <div class="trust-dot"></div>
-    <div class="trust-item">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-        <polyline points="20 6 9 17 4 12"/>
-      </svg>
-      <span>Easy Returns</span>
-    </div>
-    <div class="trust-dot"></div>
-    <div class="trust-item">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-        <circle cx="12" cy="12" r="10"/>
-        <path d="M12 6v6l4 2"/>
-      </svg>
-      <span>Ships in 2–4 Days</span>
-    </div>
-  </div>
-
-  <!-- ══════════════════════════════════════
-       MARQUEE STRIP
-  ══════════════════════════════════════ -->
-  <div class="marquee-wrap">
-    <div class="marquee-track">
-      <div class="marquee-item">
-        <span>Performance Fabric</span><div class="marquee-dot"></div>
-        <span>Athletic Fit</span><div class="marquee-dot"></div>
-        <span>Custom Printing</span><div class="marquee-dot"></div>
-        <span>Built For Athletes</span><div class="marquee-dot"></div>
-        <span>Sweat-Wicking Tech</span><div class="marquee-dot"></div>
-        <span>Pan-India Delivery</span><div class="marquee-dot"></div>
-        <span>Starting ₹399</span><div class="marquee-dot"></div>
-      </div>
-      <div class="marquee-item" aria-hidden="true">
-        <span>Performance Fabric</span><div class="marquee-dot"></div>
-        <span>Athletic Fit</span><div class="marquee-dot"></div>
-        <span>Custom Printing</span><div class="marquee-dot"></div>
-        <span>Built For Athletes</span><div class="marquee-dot"></div>
-        <span>Sweat-Wicking Tech</span><div class="marquee-dot"></div>
-        <span>Pan-India Delivery</span><div class="marquee-dot"></div>
-        <span>Starting ₹399</span><div class="marquee-dot"></div>
-      </div>
-    </div>
-  </div>
-
-  <!-- ══════════════════════════════════════
-       COLLECTION
-  ══════════════════════════════════════ -->
-  <section id="collection">
-    <div class="section-header reveal">
-      <div>
-        <div class="section-tag">Our Products</div>
-        <h2 class="section-title">The Collection</h2>
-      </div>
-      <div class="section-num">01</div>
-    </div>
-
-    <div class="collection-subtitle reveal">
-      <p>7 premium colorways. One performance standard. All at ₹399.</p>
+  <section id="collections">
+    <div class="section-title">
+      <h2>Featured Collection</h2>
+      <p>Luxury essentials engineered with premium aesthetics, powerful fits, and elevated comfort.</p>
     </div>
 
     <div class="products-grid">
 
-      <!-- White Tee -->
-      <div class="product-card reveal">
-        <img class="product-img" src="white.png" alt="AJ Wear White Performance Tee">
-        <div class="product-overlay"></div>
-        <div class="product-badge">Bestseller</div>
-        <div class="product-stock">
-          <span class="stock-dot"></span> Limited Stock
+      <div class="product-card">
+        <div class="product-image">
+          <div class="wishlist">♡</div>
+          <img src="black.png" alt="Black Tee">
+          <div class="quick-view">Quick View</div>
         </div>
         <div class="product-info">
-          <div class="product-header-row">
-            <div>
-              <div class="product-name">Performance Tee</div>
-              <div class="product-color">White</div>
-            </div>
-            <div class="product-price">₹399</div>
+          <h3>Black Tee</h3>
+          <p>Athletic Gymwear</p>
+          <div class="price-row">
+            <div class="price">₹399</div>
+            <button class="cart-btn">Add To Cart</button>
           </div>
-          <p class="product-desc">Quick-dry, sweat-wicking fabric that keeps you cool through every set.</p>
-          <a href="https://www.instagram.com/ajwear.official" class="product-dm-btn" target="_blank">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1.2" fill="currentColor" stroke="none"/></svg>
-            <span>DM to Order</span>
-          </a>
         </div>
       </div>
 
-      <!-- Olive Tee -->
-      <div class="product-card reveal reveal-delay-1">
-        <img class="product-img" src="olive.png" alt="AJ Wear Olive Performance Tee">
-        <div class="product-overlay"></div>
+      <div class="product-card">
+        <div class="product-image">
+          <div class="wishlist">♡</div>
+          <img src="burgundy.png" alt="Burgundy Tee">
+          <div class="quick-view">Quick View</div>
+        </div>
         <div class="product-info">
-          <div class="product-header-row">
-            <div>
-              <div class="product-name">Performance Tee</div>
-              <div class="product-color">Olive Green</div>
-            </div>
-            <div class="product-price">₹399</div>
+          <h3>burgundy Tee</h3>
+          <p>Luxury Streetwear</p>
+          <div class="price-row">
+            <div class="price">₹399</div>
+            <button class="cart-btn">Add To Cart</button>
           </div>
-          <p class="product-desc">Engineered for physique — cut to accentuate muscle definition.</p>
-          <a href="https://www.instagram.com/ajwear.official" class="product-dm-btn" target="_blank">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1.2" fill="currentColor" stroke="none"/></svg>
-            <span>DM to Order</span>
-          </a>
         </div>
       </div>
 
-      <!-- Maroon Tee -->
-      <div class="product-card reveal reveal-delay-2">
-        <img class="product-img" src="maroon.png" alt="AJ Wear Maroon Performance Tee">
-        <div class="product-overlay"></div>
-        <div class="product-badge new-badge">New</div>
+      <div class="product-card">
+        <div class="product-image">
+          <div class="wishlist">♡</div>
+          <img src="grey.png" alt="Grey Tee">
+          <div class="quick-view">Quick View</div>
+        </div>
         <div class="product-info">
-          <div class="product-header-row">
-            <div>
-              <div class="product-name">Performance Tee</div>
-              <div class="product-color">Maroon</div>
-            </div>
-            <div class="product-price">₹399</div>
+          <h3>Grey Tee</h3>
+          <p>Minimal Premium Wear</p>
+          <div class="price-row">
+            <div class="price">₹399</div>
+            <button class="cart-btn">Add To Cart</button>
           </div>
-          <p class="product-desc">Bold colorway. Same unmatched performance fabric — built to last.</p>
-          <a href="https://www.instagram.com/ajwear.official" class="product-dm-btn" target="_blank">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1.2" fill="currentColor" stroke="none"/></svg>
-            <span>DM to Order</span>
-          </a>
         </div>
       </div>
-
-      <!-- Navy Tee -->
-      <div class="product-card reveal reveal-delay-1">
-        <img class="product-img" src="navy.png" alt="AJ Wear Navy Performance Tee">
-        <div class="product-overlay"></div>
-        <div class="product-info">
-          <div class="product-header-row">
-            <div>
-              <div class="product-name">Performance Tee</div>
-              <div class="product-color">Navy Blue</div>
-            </div>
-            <div class="product-price">₹399</div>
-          </div>
-          <p class="product-desc">Versatile, clean — goes from the gym floor to the street effortlessly.</p>
-          <a href="https://www.instagram.com/ajwear.official" class="product-dm-btn" target="_blank">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1.2" fill="currentColor" stroke="none"/></svg>
-            <span>DM to Order</span>
-          </a>
+  <div class="product-card">
+        <div class="product-image">
+          <div class="wishlist">♡</div>
+          <img src="sage.png" alt="Black Tee">
+          <div class="quick-view">Quick View</div>
         </div>
-      </div>
-
-      <!-- Grey Tee -->
-      <div class="product-card reveal reveal-delay-2">
-        <img class="product-img" src="grey.png" alt="AJ Wear Grey Performance Tee">
-        <div class="product-overlay"></div>
         <div class="product-info">
-          <div class="product-header-row">
-            <div>
-              <div class="product-name">Performance Tee</div>
-              <div class="product-color">Grey</div>
-            </div>
-            <div class="product-price">₹399</div>
+          <h3>Sage Tee</h3>
+          <p>Athletic Gymwear</p>
+          <div class="price-row">
+            <div class="price">₹399</div>
+            <button class="cart-btn">Add To Cart</button>
           </div>
-          <p class="product-desc">The classic. Every serious wardrobe needs a performance grey.</p>
-          <a href="https://www.instagram.com/ajwear.official" class="product-dm-btn" target="_blank">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1.2" fill="currentColor" stroke="none"/></svg>
-            <span>DM to Order</span>
-          </a>
         </div>
-      </div>
-
-      <!-- Sage Tee -->
-      <div class="product-card reveal reveal-delay-3">
-        <img class="product-img" src="sage.png" alt="AJ Wear Sage Performance Tee">
-        <div class="product-overlay"></div>
-        <div class="product-badge new-badge">New</div>
+      <div class="product-card">
+        <div class="product-image">
+          <div class="wishlist">♡</div>
+          <img src="white.png" alt="Black Tee">
+          <div class="quick-view">Quick View</div>
+        </div>
         <div class="product-info">
-          <div class="product-header-row">
-            <div>
-              <div class="product-name">Performance Tee</div>
-              <div class="product-color">Sage Green</div>
-            </div>
-            <div class="product-price">₹399</div>
+          <h3>White Tee</h3>
+          <p>Athletic Gymwear</p>
+          <div class="price-row">
+            <div class="price">₹399</div>
+            <button class="cart-btn">Add To Cart</button>
           </div>
-          <p class="product-desc">Fresh drop. Earthy tone that stands out while you put in the work.</p>
-          <a href="https://www.instagram.com/ajwear.official" class="product-dm-btn" target="_blank">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1.2" fill="currentColor" stroke="none"/></svg>
-            <span>DM to Order</span>
-          </a>
         </div>
-      </div>
-
-      <!-- Black Tee -->
-      <div class="product-card reveal reveal-delay-1">
-        <img class="product-img" src="black.png" alt="AJ Wear Black Performance Tee">
-        <div class="product-overlay"></div>
-        <div class="product-badge">Bestseller</div>
+          <div class="product-card">
+        <div class="product-image">
+          <div class="wishlist">♡</div>
+          <img src="navy.png" alt="Black Tee">
+          <div class="quick-view">Quick View</div>
+        </div>
         <div class="product-info">
-          <div class="product-header-row">
-            <div>
-              <div class="product-name">Performance Tee</div>
-              <div class="product-color">Black</div>
-            </div>
-            <div class="product-price">₹399</div>
+          <h3>Navy Tee</h3>
+          <p>Athletic Gymwear</p>
+          <div class="price-row">
+            <div class="price">₹399</div>
+            <button class="cart-btn">Add To Cart</button>
           </div>
-          <p class="product-desc">The OG. The crowd favourite. The one you'll wear to every session.</p>
-          <a href="https://www.instagram.com/ajwear.official" class="product-dm-btn" target="_blank">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1.2" fill="currentColor" stroke="none"/></svg>
-            <span>DM to Order</span>
-          </a>
         </div>
-      </div>
-
-      <!-- Burgundy Tee (from uploaded image) -->
-      <div class="product-card reveal reveal-delay-2">
-        <img class="product-img" src="burgundy.png" alt="AJ Wear Burgundy Performance Tee">
-        <div class="product-overlay"></div>
-        <div class="product-badge new-badge">New</div>
+              <div class="product-card">
+        <div class="product-image">
+          <div class="wishlist">♡</div>
+          <img src="olive.png" alt="Black Tee">
+          <div class="quick-view">Quick View</div>
+        </div>
         <div class="product-info">
-          <div class="product-header-row">
-            <div>
-              <div class="product-name">Performance Tee</div>
-              <div class="product-color">Burgundy</div>
-            </div>
-            <div class="product-price">₹399</div>
+          <h3>Olive Tee</h3>
+          <p>Athletic Gymwear</p>
+          <div class="price-row">
+            <div class="price">₹399</div>
+            <button class="cart-btn">Add To Cart</button>
           </div>
-          <p class="product-desc">Deep, rich tone — dominant in any room, unbeatable under pressure.</p>
-          <a href="https://www.instagram.com/ajwear.official" class="product-dm-btn" target="_blank">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1.2" fill="currentColor" stroke="none"/></svg>
-            <span>DM to Order</span>
-          </a>
         </div>
-      </div>
-
-    </div>
-
-    <!-- CTA below grid -->
-    <div class="collection-cta reveal">
-      <p>Can't decide? <strong>Order any 2 tees and get priority dispatch.</strong></p>
-      <a href="https://wa.me/918306455053?text=Hi%2C%20I%20want%20to%20order%202%20tees%20from%20AJ%20Wear" 
-         class="btn-primary" target="_blank"><span>Order 2 Tees on WhatsApp</span></a>
     </div>
   </section>
 
-  <!-- ══════════════════════════════════════
-       USP / WHY AJ WEAR
-  ══════════════════════════════════════ -->
-  <section id="usp">
-    <div style="max-width:1400px; margin:0 auto;">
-      <div class="section-header reveal">
-        <div>
-          <div class="section-tag">Why AJ Wear</div>
-          <h2 class="section-title">Built Different</h2>
-        </div>
-        <div class="section-num">02</div>
-      </div>
-
-      <div class="usp-grid">
-
-        <div class="usp-card reveal">
-          <div class="usp-number">01</div>
-          <svg class="usp-icon" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.5">
-            <circle cx="24" cy="12" r="6"/>
-            <path d="M12 36c0-6.627 5.373-12 12-12s12 5.373 12 12"/>
-            <path d="M4 24h6M38 24h6M24 4v6M24 38v6"/>
-          </svg>
-          <div class="usp-title">Personalised Printing</div>
-          <div class="usp-desc">Make it yours. Custom prints, your name, your team — we bring your vision to life on premium performance fabric that holds every detail wash after wash.</div>
-        </div>
-
-        <div class="usp-card reveal reveal-delay-1">
-          <div class="usp-number">02</div>
-          <svg class="usp-icon" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.5">
-            <path d="M24 6L16 18h16L24 6z"/>
-            <path d="M14 18v16a10 10 0 0020 0V18"/>
-            <path d="M19 28l2 3 4-6"/>
-          </svg>
-          <div class="usp-title">Athletic Fit</div>
-          <div class="usp-desc">Engineered for physique. Our precision cut follows the body's natural lines — accentuating muscle definition while enabling unrestricted movement through every rep.</div>
-        </div>
-
-        <div class="usp-card reveal reveal-delay-2">
-          <div class="usp-number">03</div>
-          <svg class="usp-icon" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.5">
-            <path d="M8 24c0-8.837 7.163-16 16-16s16 7.163 16 16"/>
-            <path d="M16 24c0 4.418 3.582 8 8 8s8-3.582 8-8"/>
-            <path d="M24 8v4M24 36v4M12 16l2.8 2.8M33.2 29.2L36 32M8 24h4M36 24h4"/>
-          </svg>
-          <div class="usp-title">Performance Fabric</div>
-          <div class="usp-desc">Quick-dry sweat-wicking technology keeps you focused on training — not your clothing. Built to endure the most brutal sessions without losing shape or comfort.</div>
-        </div>
-
-        <div class="usp-card reveal reveal-delay-1">
-          <div class="usp-number">04</div>
-          <svg class="usp-icon" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.5">
-            <path d="M6 12l6 6 12-12"/>
-            <rect x="4" y="4" width="40" height="40" rx="4"/>
-            <path d="M28 22h10M28 32h10M8 32h8"/>
-          </svg>
-          <div class="usp-title">Affordable Premium</div>
-          <div class="usp-desc">Premium doesn't have to cost premium. At ₹399, AJ Wear delivers big-brand performance at a price that doesn't punish your wallet. No compromise, ever.</div>
-        </div>
-
-      </div>
-    </div>
-  </section>
-
-  <!-- ══════════════════════════════════════
-       BRAND STORY
-  ══════════════════════════════════════ -->
   <section id="story">
-    <div class="story-visual reveal">
-      <div class="story-accent"></div>
-      <img class="story-img-main" src="sage.png" alt="AJ Wear Training">
-      <img class="story-img-float" src="black.png" alt="AJ Wear Black Tee">
-    </div>
+    <div class="story">
+      <img src="maroon.png" alt="AJ Story">
 
-    <div class="story-text">
-      <div class="section-tag reveal">Our Story</div>
-      <h2 class="story-quote reveal reveal-delay-1">
-        No Excuses.<br><em>Only Results.</em>
-      </h2>
-      <p class="story-body reveal reveal-delay-2">
-        AJ Wear was built for individuals who train with discipline and push limits.
-        Not for the occasional gym-goer — for the ones who show up every single day,
-        regardless of how they feel.<br><br>
-        Every thread is chosen for performance. Every fit is cut for athletes.
-        This is not just clothing — it's armour for the grind.
-      </p>
-      <div class="story-stat-row reveal reveal-delay-3">
-        <div>
-          <div class="story-stat-num">8+</div>
-          <div class="story-stat-label">Colorways</div>
-        </div>
-        <div>
-          <div class="story-stat-num">100%</div>
-          <div class="story-stat-label">Performance Fabric</div>
-        </div>
-        <div>
-          <div class="story-stat-num">₹399</div>
-          <div class="story-stat-label">Starting Price</div>
-        </div>
-      </div>
-      <div class="reveal reveal-delay-3" style="margin-top: 40px;">
-        <a href="#collection" class="btn-primary"><span>Shop Now</span></a>
+      <div class="story-content">
+        <h2>Wear Confidence.</h2>
+        <p>
+          AJ Wear was built to represent ambition, discipline, and modern youth culture. Every piece is crafted with premium fabrics, elevated fits, and luxury detailing.
+        </p>
+
+        <p>
+          Inspired by elite streetwear aesthetics and high-performance gym culture, AJ Wear creates fashion designed to dominate both lifestyle and movement.
+        </p>
+
+        <a href="#arrivals" class="btn">Discover More</a>
       </div>
     </div>
   </section>
 
-  <!-- ══════════════════════════════════════
-       GALLERY / LIFESTYLE
-  ══════════════════════════════════════ -->
+  <section id="arrivals">
+    <div class="section-title">
+      <h2>New Arrivals</h2>
+      <p>Modern silhouettes, premium construction, and clean aesthetics designed for everyday dominance.</p>
+    </div>
+
+    <div class="products-grid">
+      <div class="product-card">
+        <div class="product-image">
+          <img src="black.png" alt="Arrival">
+        </div>
+        <div class="product-info">
+          <h3>Shadow Active Tee</h3>
+          <div class="price-row">
+            <div class="price">₹399</div>
+            <button class="cart-btn">Add</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="product-card">
+        <div class="product-image">
+          <img src="grey.png" alt="Arrival">
+        </div>
+        <div class="product-info">
+          <h3>Urban Motion Fit</h3>
+          <div class="price-row">
+            <div class="price">₹399</div>
+            <button class="cart-btn">Add</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="product-card">
+        <div class="product-image">
+          <img src="burgundy.png" alt="Arrival">
+        </div>
+        <div class="product-info">
+          <h3>Maroon Velocity Tee</h3>
+          <div class="price-row">
+            <div class="price">₹399</div>
+            <button class="cart-btn">Add</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="section-title">
+      <h2>Why Choose AJ</h2>
+      <p>Premium craftsmanship designed for modern streetwear athletes and fashion-forward creators.</p>
+    </div>
+
+    <div class="features">
+      <div class="feature-card">
+        <h3>Premium Fabric</h3>
+        <p>Ultra-soft breathable materials engineered for comfort and movement.</p>
+      </div>
+
+      <div class="feature-card">
+        <h3>Luxury Fit</h3>
+        <p>Modern silhouettes inspired by elite global fashion aesthetics.</p>
+      </div>
+
+      <div class="feature-card">
+        <h3>Streetwear Identity</h3>
+        <p>Bold minimalism mixed with cinematic luxury styling.</p>
+      </div>
+
+      <div class="feature-card">
+        <h3>Fast Shipping</h3>
+        <p>Premium delivery experience built for modern customers.</p>
+      </div>
+    </div>
+  </section>
+
   <section id="gallery">
-    <div class="gallery-header">
-      <div class="section-tag reveal">Lifestyle</div>
-      <h2 class="section-title reveal reveal-delay-1">In The Gym</h2>
+    <div class="section-title">
+      <h2>Luxury Lookbook</h2>
+      <p>Editorial-inspired visuals capturing the power, style, and confidence behind AJ Wear.</p>
     </div>
 
-    <div class="gallery-grid">
-      <div class="gallery-item reveal">
-        <img src="sage.png" alt="AJ Wear Training">
+    <div class="gallery">
+      <img src="black.png" alt="Gallery">
+      <img src="grey.png" alt="Gallery">
+      <img src="burgundy.png" alt="Gallery">
+      <img src="maroon.png" alt="Gallery">
+    </div>
+  </section>
+
+  <section>
+    <div class="drop-banner">
+      <h2>LIMITED DROP 2026</h2>
+      <p>Exclusive release. Limited quantities. No restocks.</p>
+
+      <div class="countdown">
+        <div class="count-box">
+          <h3 id="days">12</h3>
+          <span>Days</span>
+        </div>
+
+        <div class="count-box">
+          <h3 id="hours">18</h3>
+          <span>Hours</span>
+        </div>
+
+        <div class="count-box">
+          <h3 id="minutes">44</h3>
+          <span>Minutes</span>
+        </div>
+
+        <div class="count-box">
+          <h3 id="seconds">29</h3>
+          <span>Seconds</span>
+        </div>
       </div>
-      <div class="gallery-item reveal reveal-delay-1">
-        <img src="black.png" alt="AJ Wear Black Tee">
+
+      <a href="#" class="btn">Secure Your Drop</a>
+    </div>
+  </section>
+
+  <section>
+    <div class="section-title">
+      <h2>Testimonials</h2>
+      <p>Trusted by creators, athletes, and fashion-forward individuals.</p>
+    </div>
+
+    <div class="testimonials">
+      <div class="testimonial">
+        <p>
+          “The fit, quality, and aesthetic feel like luxury designer streetwear. AJ Wear genuinely stands out.”
+        </p>
+        <h4>— Fitness Creator</h4>
       </div>
-      <div class="gallery-item reveal reveal-delay-2">
-        <img src="grey.png" alt="AJ Wear Grey Tee">
+
+      <div class="testimonial">
+        <p>
+          “Premium feel from packaging to fabric quality. Looks insane both in gym and casual styling.”
+        </p>
+        <h4>— Athlete</h4>
       </div>
-      <div class="gallery-item reveal reveal-delay-1">
-        <img src="maroon.png" alt="AJ Wear Maroon Tee">
-      </div>
-      <div class="gallery-item reveal reveal-delay-3">
-        <img src="navy.png" alt="AJ Wear Navy Tee">
+
+      <div class="testimonial">
+        <p>
+          “Minimal, clean, and powerful. The branding and overall vibe feel world-class.”
+        </p>
+        <h4>— Streetwear Enthusiast</h4>
       </div>
     </div>
   </section>
 
-  <!-- ══════════════════════════════════════
-       REVIEWS SECTION
-  ══════════════════════════════════════ -->
-  <section id="reviews">
-    <div class="reviews-inner">
-      <div class="section-header reveal">
-        <div>
-          <div class="section-tag">Customer Reviews</div>
-          <h2 class="section-title">Real Athletes.<br>Real Results.</h2>
-        </div>
-        <div class="section-num">03</div>
-      </div>
+  <section>
+    <div class="newsletter">
+      <h2>Join The Movement</h2>
+      <p>Get early access to exclusive drops, premium collections, and limited releases.</p>
 
-      <div class="reviews-grid">
-
-        <div class="review-card reveal">
-          <div class="review-stars">★★★★★</div>
-          <p class="review-text">"Finally found gym wear that actually fits my physique properly. The fabric is crazy breathable — wore it through a 2-hour session and it stayed dry the whole time. The AJ logo is clean, not oversized. 100% worth it at ₹399."</p>
-          <div class="review-author">
-            <div class="review-avatar">RS</div>
-            <div>
-              <div class="review-name">Rahul S.</div>
-              <div class="review-meta">Verified Buyer · Delhi</div>
-            </div>
-          </div>
-        </div>
-
-        <div class="review-card reveal reveal-delay-1">
-          <div class="review-stars">★★★★★</div>
-          <p class="review-text">"Ordered the black and navy together. Both fit like a dream — snug without being tight. The material doesn't cling when you sweat. Quick dispatch too, got it in 3 days. Ordering the maroon next."</p>
-          <div class="review-author">
-            <div class="review-avatar">AK</div>
-            <div>
-              <div class="review-name">Arjun K.</div>
-              <div class="review-meta">Verified Buyer · Mumbai</div>
-            </div>
-          </div>
-        </div>
-
-        <div class="review-card reveal reveal-delay-2">
-          <div class="review-stars">★★★★★</div>
-          <p class="review-text">"Got a custom print done for my fitness page — looked absolutely fire. Professional quality and the print didn't crack after washing. My followers kept asking where I got it. Best ₹399 I've spent."</p>
-          <div class="review-author">
-            <div class="review-avatar">VT</div>
-            <div>
-              <div class="review-name">Varun T.</div>
-              <div class="review-meta">Verified Buyer · Bangalore</div>
-            </div>
-          </div>
-        </div>
-
-        <div class="review-card reveal reveal-delay-1">
-          <div class="review-stars">★★★★☆</div>
-          <p class="review-text">"Good quality at this price point — honestly surprised. The athletic fit is on point, shows the physique well. Sizing is accurate, ordered medium and it was perfect. Will definitely buy again."</p>
-          <div class="review-author">
-            <div class="review-avatar">MJ</div>
-            <div>
-              <div class="review-name">Mohit J.</div>
-              <div class="review-meta">Verified Buyer · Pune</div>
-            </div>
-          </div>
-        </div>
-
-        <div class="review-card reveal reveal-delay-2">
-          <div class="review-stars">★★★★★</div>
-          <p class="review-text">"Ordered 3 pieces — olive, maroon, and grey. All perfect. These are the kind of tees you feel confident training in. The brand is legit, don't sleep on it. DM ordering is smooth too."</p>
-          <div class="review-author">
-            <div class="review-avatar">SK</div>
-            <div>
-              <div class="review-name">Siddharth K.</div>
-              <div class="review-meta">Verified Buyer · Hyderabad</div>
-            </div>
-          </div>
-        </div>
-
-      </div>
-
-      <!-- Rating Summary -->
-      <div class="rating-summary reveal">
-        <div class="rating-big">4.9</div>
-        <div>
-          <div class="rating-stars-big">★★★★★</div>
-          <div class="rating-count">Based on 120+ orders</div>
-        </div>
-      </div>
-
+      <form class="newsletter-form">
+        <input type="email" placeholder="Enter your email">
+        <button class="btn">Subscribe</button>
+      </form>
     </div>
   </section>
 
-  <!-- ══════════════════════════════════════
-       ORDER SECTION
-  ══════════════════════════════════════ -->
-  <section id="order">
-    <div class="order-tag">Ready to Order?</div>
-    <h2 class="order-title reveal">GET YOURS<br>TODAY</h2>
-    <p class="order-sub reveal reveal-delay-1">
-      Order directly via Instagram DM or WhatsApp. We deliver across India in 2–4 days.
-      Custom printing available on all orders — minimum 1 piece.
-    </p>
-
-    <div class="order-channels reveal reveal-delay-2">
-
-      <a href="https://instagram.com/ajwear.official" class="order-channel" target="_blank">
-        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-          <rect x="2" y="2" width="20" height="20" rx="5"/>
-          <circle cx="12" cy="12" r="4"/>
-          <circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/>
-        </svg>
-        <div>
-          <span class="channel-label">Instagram DM</span>
-          <span class="channel-value">@ajwear.official</span>
-        </div>
-      </a>
-
-      <a href="https://wa.me/918306455053?text=Hi%2C%20I%20want%20to%20order%20from%20AJ%20Wear" 
-         class="order-channel" target="_blank">
-        <svg width="28" height="28" viewBox="0 0 24 24" fill="currentColor">
-          <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
-        </svg>
-        <div>
-          <span class="channel-label">WhatsApp</span>
-          <span class="channel-value">+91 83064 55053</span>
-        </div>
-      </a>
-
-      <a href="tel:+918306455053" class="order-channel">
-        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-          <path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.81a19.79 19.79 0 01-3.07-8.68A2 2 0 012 .88h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.09 8.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/>
-        </svg>
-        <div>
-          <span class="channel-label">Call Us</span>
-          <span class="channel-value">+91 83064 55053</span>
-        </div>
-      </a>
-
-    </div>
-
-    <div class="reveal reveal-delay-3">
-      <a href="https://wa.me/918306455053?text=Hi%2C%20I%20want%20to%20order%20from%20AJ%20Wear" 
-         class="btn-dm" target="_blank">
-        <span>Order on WhatsApp</span>
-      </a>
-    </div>
-
-    <!-- Order FAQ strip -->
-    <div class="order-faq reveal reveal-delay-3">
-      <div class="faq-item">
-        <strong>Delivery?</strong> Pan-India · 2–4 business days
-      </div>
-      <div class="faq-divider"></div>
-      <div class="faq-item">
-        <strong>Custom Print?</strong> Available on all orders
-      </div>
-      <div class="faq-divider"></div>
-      <div class="faq-item">
-        <strong>Returns?</strong> Easy 7-day return policy
-      </div>
-      <div class="faq-divider"></div>
-      <div class="faq-item">
-        <strong>Payment?</strong> UPI · Cash on Delivery · Bank Transfer
-      </div>
-    </div>
-  </section>
-
-  <!-- ══════════════════════════════════════
-       FOOTER
-  ══════════════════════════════════════ -->
-  <footer>
-    <div class="footer-top">
-      <div class="footer-brand">
-        <div class="footer-logo">
-          <img src="logo.png" alt="AJ Wear">
-        </div>
-        <p class="footer-tagline">Built For The Grind.</p>
-        <p class="footer-bio">Premium performance gymwear for serious athletes. Pan-India delivery. Custom printing available.</p>
-        <div class="footer-socials">
-          <a href="https://instagram.com/ajwear.official" target="_blank" class="footer-social">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="18">
-              <rect x="2" y="2" width="20" height="20" rx="5"/>
-              <circle cx="12" cy="12" r="4"/>
-              <circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/>
-            </svg>
-          </a>
-          <a href="https://wa.me/918306455053" target="_blank" class="footer-social">
-            <svg viewBox="0 0 24 24" fill="currentColor" width="18">
-              <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
-            </svg>
-          </a>
-        </div>
+  <footer id="contact">
+    <div class="footer-grid">
+      <div>
+        <img src="logo.png" alt="AJ Wear">
+        <p>Luxury streetwear engineered for confidence, movement, and modern culture.</p>
       </div>
 
-      <div class="footer-col">
-        <div class="footer-col-title">Shop</div>
-        <a href="#collection" class="footer-link">All Products</a>
-        <a href="#collection" class="footer-link">Performance Tees</a>
-        <a href="#order" class="footer-link">Custom Printing</a>
-        <a href="#order" class="footer-link">Bulk Orders</a>
+      <div>
+        <h3>Navigation</h3>
+        <p><a href="#">Home</a></p>
+        <p><a href="#collections">Collections</a></p>
+        <p><a href="#story">About</a></p>
+        <p><a href="#gallery">Lookbook</a></p>
       </div>
 
-      <div class="footer-col">
-        <div class="footer-col-title">Policies</div>
-        <a href="#order" class="footer-link">Shipping Policy</a>
-        <a href="#order" class="footer-link">Return Policy</a>
-        <a href="#order" class="footer-link">Privacy Policy</a>
-        <a href="#order" class="footer-link">Terms of Service</a>
+      <div>
+        <h3>Social</h3>
+        <p><a href="#">@ajwear.official</a></p>
+        <p><a href="#">TikTok</a></p>
+        <p><a href="#">YouTube</a></p>
+        <p><a href="#">Pinterest</a></p>
       </div>
 
-      <div class="footer-col">
-        <div class="footer-col-title">Contact</div>
-        <a href="https://instagram.com/ajwear.official" class="footer-link" target="_blank">@ajwear.official</a>
-        <a href="https://wa.me/918306455053" class="footer-link" target="_blank">WhatsApp Us</a>
-        <a href="tel:+918306455053" class="footer-link">+91 83064 55053</a>
-        <span class="footer-link" style="cursor:default;">Harpalpur, M.P., India</span>
+      <div>
+        <h3>Contact</h3>
+        <p>support@ajwear.com</p>
+        <p>+91 8306455053</p>
+        <p>India</p>
       </div>
     </div>
 
-    <div class="footer-bottom">
-      <div class="footer-copy">© 2026 AJ Wear. All Rights Reserved.</div>
-      <div class="footer-bottom-links">
-        <a href="#" class="footer-link">Privacy</a>
-        <a href="#" class="footer-link">Returns</a>
-        <a href="#" class="footer-link">Terms</a>
-      </div>
+    <div class="copyright">
+      © 2026 AJ Wear. All Rights Reserved.
     </div>
   </footer>
 
-  <script src="script.js"></script>
+  <div class="modal" id="productModal">
+    <div class="close-modal">×</div>
+    <div class="modal-content">
+      <img src="black.png" alt="Product">
 
+      <div class="modal-details">
+        <h2>Midnight Performance Tee</h2>
+        <p style="color: var(--muted); line-height: 1.8; margin-top: 15px;">
+          Premium lightweight gymwear crafted for comfort, movement, and elevated aesthetics.
+        </p>
+
+        <div class="sizes">
+          <div class="size">S</div>
+          <div class="size">M</div>
+          <div class="size">L</div>
+          <div class="size">XL</div>
+        </div>
+
+        <h3 style="margin-bottom: 25px;">₹399</h3>
+
+        <button class="btn">Add To Cart</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    window.addEventListener('load', () => {
+      setTimeout(() => {
+        document.querySelector('.loader').style.opacity = '0';
+        document.querySelector('.loader').style.visibility = 'hidden';
+      }, 2600);
+    });
+
+    document.addEventListener('mousemove', (e) => {
+      document.body.style.setProperty('--x', e.clientX + 'px');
+      document.body.style.setProperty('--y', e.clientY + 'px');
+    });
+
+    gsap.registerPlugin(ScrollTrigger);
+
+    gsap.utils.toArray('section').forEach(section => {
+      gsap.from(section, {
+        opacity: 0,
+        y: 80,
+        duration: 1,
+        ease: 'power4.out',
+        scrollTrigger: {
+          trigger: section,
+          start: 'top 80%'
+        }
+      })
+    });
+
+    gsap.from('.hero-content h1', {
+      y: 80,
+      opacity: 0,
+      duration: 1.2,
+      delay: 0.5
+    });
+
+    gsap.from('.hero-image img', {
+      scale: 0.8,
+      opacity: 0,
+      duration: 1.4,
+      delay: 0.8
+    });
+
+    const modal = document.getElementById('productModal');
+
+    document.querySelectorAll('.quick-view').forEach(btn => {
+      btn.addEventListener('click', () => {
+        modal.style.display = 'flex';
+      })
+    });
+
+    document.querySelector('.close-modal').addEventListener('click', () => {
+      modal.style.display = 'none';
+    });
+
+    window.addEventListener('click', (e) => {
+      if(e.target === modal) {
+        modal.style.display = 'none';
+      }
+    });
+
+    const targetDate = new Date();
+    targetDate.setDate(targetDate.getDate() + 12);
+
+    function updateCountdown() {
+      const now = new Date();
+      const diff = targetDate - now;
+
+      const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+      const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
+      const minutes = Math.floor((diff / (1000 * 60)) % 60);
+      const seconds = Math.floor((diff / 1000) % 60);
+
+      document.getElementById('days').innerText = days;
+      document.getElementById('hours').innerText = hours;
+      document.getElementById('minutes').innerText = minutes;
+      document.getElementById('seconds').innerText = seconds;
+    }
+
+    setInterval(updateCountdown, 1000);
+  </script>
 </body>
 </html>
